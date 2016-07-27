@@ -11,3 +11,4 @@ class Applicant(BaseModel):
     time = DateField()
     school = ForeignKeyField(School, related_name='applicants')
     status = IntegerField(choices=[(0, 1, 2, 3), ('new', 'in progress', 'rejected', 'accepted')])
+    application_code = CharField(unique=True)
