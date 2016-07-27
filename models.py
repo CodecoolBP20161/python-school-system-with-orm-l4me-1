@@ -3,7 +3,7 @@ from peewee import *
 # Configure your database connection here
 # database name = should be your username on your laptop
 # database user = should be your username on your laptop
-db = PostgresqlDatabase('dbname', user='dbuser')
+db = PostgresqlDatabase('school_system')
 
 
 class BaseModel(Model):
