@@ -3,18 +3,15 @@ from school import *
 from city import *
 import string
 import random
+from person import *
 
 
-class Applicant(BaseModel):
-    first_name = CharField()
-    last_name = CharField()
-    email = CharField(unique=True)
-    password = CharField()
-    location = ForeignKeyField(City, related_name='applicants')
+class Applicant(Person):
+    location = CharField()
     time = DateField()
     school = ForeignKeyField(School, related_name='applicants', null=True)
     status = IntegerField(choices=[(0, 1, 2, 3), ('new', 'in progress', 'rejected', 'accepted')])
-    application_code = CharField(null=True)
+    application_code = CharField(null=True, unique=True)
 
     @staticmethod
     def applicants_without_applicant_code():
@@ -39,4 +36,5 @@ class Applicant(BaseModel):
             print("The following applicants have no school connected: \n")
             for applicant in query:
                 print(applicant.first_name, applicant.last_name)
-                Applicant.update(school=applicant.location.school).where(Applicant.id == applicant.id).execute()
+                school = City.get(City.name == applicant.location).school
+                Applicant.update(school=school).where(Applicant.id == applicant.id).execute()
