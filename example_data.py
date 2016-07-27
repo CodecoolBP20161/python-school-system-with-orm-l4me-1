@@ -32,10 +32,10 @@ ap1 = Applicant.create(
     last_name='Kovács',
     email='kovacspeter@cc.hu',
     password='kovacspeter1',
-    location=budapest,
+    location='Budapest',
     time='2016-04-22',
     school=budapest2016,
-    status=0,
+    status=1,
     application_code='dK85Pf#&')
 
 ap2 = Applicant.create(
@@ -43,7 +43,7 @@ ap2 = Applicant.create(
     last_name='Tóth',
     email='tothjudit@cc.hu',
     password='tothjudit2',
-    location=budapest,
+    location='Budapest',
     time='2016-04-24',
     status=0)
 
@@ -52,7 +52,7 @@ ap3 = Applicant.create(
     last_name='Ceglédi',
     email='cegledikinga@cc.hu',
     password='cegledikinga3',
-    location=cegled,
+    location='Cegléd',
     time='2016-04-24',
     status=0)
 
@@ -61,7 +61,7 @@ ap4 = Applicant.create(
     last_name='Veszprémi',
     email='veszpremijanos@cc.hu',
     password='veszpremijanos4',
-    location=veszprem,
+    location='Veszprém',
     time='2016-04-23',
     status=0)
 
@@ -70,7 +70,7 @@ ap5 = Applicant.create(
     last_name='Váci',
     email='vaciferenc@cc.hu',
     password='vaciferenc5',
-    location=vac,
+    location='Vác',
     time='2016-05-02',
     status=0)
 
@@ -79,7 +79,7 @@ ap6 = Applicant.create(
     last_name='Győri',
     email='gyorilajos@cc.hu',
     password='gyorilajos6',
-    location=gyor,
+    location='Győr',
     time='2016-05-04',
     status=0)
 
@@ -88,7 +88,7 @@ ap7 = Applicant.create(
     last_name='Miskolci',
     email='miskolciendre@cc.hu',
     password='miskolciendre7',
-    location=miskolc,
+    location='Miskolc',
     time='2016-05-22',
     status=0)
 
@@ -97,7 +97,7 @@ ap8 = Applicant.create(
     last_name='Egri',
     email='egrililla@cc.hu',
     password='egrililla8',
-    location=eger,
+    location='Eger',
     time='2016-05-22',
     status=0)
 
@@ -106,7 +106,7 @@ ap9 = Applicant.create(
     last_name='Debreceni',
     email='debrecenizita@cc.hu',
     password='debrecenizita9',
-    location=debrecen,
+    location='Debrecen',
     time='2016-05-13',
     status=0)
 
@@ -115,7 +115,7 @@ ap10 = Applicant.create(
     last_name='Wojcik',
     email='mateuszwojcik@cc.pl',
     password='mateuszwojcik10',
-    location=krakow,
+    location='Krakow',
     time='2016-06-16',
     status=0)
 
@@ -124,6 +124,6 @@ ap11 = Applicant.create(
     last_name='Kaminski',
     email='aniakaminski@cc.pl',
     password='aniakaminski11',
-    location=lublin,
+    location='Lublin',
     time='2016-06-20',
     status=0)
