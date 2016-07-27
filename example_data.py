@@ -5,9 +5,9 @@ from applicant import *
 from school import *
 from city import *
 
-# Applicant.delete().execute()
-# City.delete().execute()
-# School.delete().execute()
+Applicant.delete().execute()
+City.delete().execute()
+School.delete().execute()
 
 # SCHOOL example data
 miskolc2016 = School.create(location='Miskolc')
