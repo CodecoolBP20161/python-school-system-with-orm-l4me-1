@@ -9,7 +9,7 @@ class Interview(BaseModel):
 
     @classmethod
     def applicants_without_interview_slot(cls):
-        for applicant in Applicant.select().where(Applicant.status == 1):
+        for applicant in Applicant.select().where(Applicant.status == 1).order_by(Applicant.time):
             assigned = False
             if cls.select().where(cls.application_code == applicant.application_code):
                 assigned = True
