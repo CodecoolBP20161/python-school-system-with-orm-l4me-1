@@ -48,14 +48,12 @@ class Applicant(Person):
     @classmethod
     def filter_applicant_by_status(cls, status):
         status_codes = {0: 'new', 1: 'in progress', 2: 'rejected', 3: 'accepted'}
-        query = cls.select().where(cls.status == status)
-        for applicant in query:
+        for applicant in [applicant for applicant in cls.select().where(cls.status == status)]:
             print(applicant.full_name + ": " + status_codes[applicant.status])
 
     @classmethod
     def filter_applicant_by_location(cls, location):
-        applicants = [applicant for applicant in cls.select().where(cls.location == location)]
-        for applicant in applicants:
+        for applicant in [applicant for applicant in cls.select().where(cls.location == location)]:
             print(applicant.full_name + ": " + applicant.location)
 
     @classmethod
