@@ -14,10 +14,6 @@ class Applicant(Person):
     status = IntegerField(choices=[(0, 1, 2, 3), ('new', 'in progress', 'rejected', 'accepted')])
     application_code = CharField(null=True, unique=True)
 
-    @property
-    def full_name(self):
-        return self.first_name+" "+self.last_name
-
     @classmethod
     def applicants_without_applicant_code(cls):
         query = cls.select().where(cls.application_code >> None)
