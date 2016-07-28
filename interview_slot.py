@@ -10,7 +10,9 @@ class InterviewSlot(BaseModel):
     available = BooleanField()
 
     @classmethod
-    def find_interview_slot(cls):
+    def find_interview_slot(cls, applicant_school):
         query = cls.select().where(cls.available >> True)
         if query:
-            return random.choice(query)
+            query = [slot for slot in query if slot.mentor.school == applicant_school]
+            if query:
+                return random.choice(query)
