@@ -10,9 +10,9 @@ from school import *
 def print_menu(title, options, exit_message):
 
     counter = 1
-    print (30 * '-')
+    print(30 * '-')
     print(title)
-    print (30 * '-')
+    print(30 * '-')
     for i in options:
         print("("+str(counter)+")" + "\t" + str(i))
         counter += 1
@@ -54,7 +54,7 @@ def choice():
         sys.exit()
 
     else:
-        print ("Invalid number. Try again...")
+        print("Invalid number. Try again...")
 
 
 def applicant_menu():
@@ -185,8 +185,6 @@ def administrator_personal_name():
 def administrator_personal_email():
     email = input("Enter the email: \n")
     Applicant.filter_applicant_by_email(email)
-
-
 
 
 def mentor_menu():
