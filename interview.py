@@ -21,3 +21,11 @@ class Interview(BaseModel):
                     print("New interview booked")
                 else:
                     print("No interview slots available in this applicant's school")
+
+    @classmethod
+    def filter_applicant_by_mentor(cls, mentor):
+        from mentor import Mentor
+        query = cls.select()
+        query = [interview for interview in query if interview.interview_slot.mentor == mentor]
+        for interview in query:
+            print(interview.applicant.full_name+": "+interview.interview_slot.mentor.full_name)
