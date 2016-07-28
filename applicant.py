@@ -61,3 +61,14 @@ class Applicant(Person):
         applicants = [applicant for applicant in cls.select().where(cls.location == location)]
         for applicant in applicants:
             print(applicant.full_name + ": " + applicant.location)
+
+    @classmethod
+    def filter_applicant_by_name(cls, name):
+        query = cls.select().where(cls.first_name.startswith(name) | (cls.last_name.startswith(name)))
+        for applicant in query:
+            print(applicant.full_name)
+
+    @classmethod
+    def filter_applicant_by_email(cls, email):
+        for applicant in [applicant for applicant in cls.select().where(cls.email.contains(email))]:
+            print(applicant.full_name + ": " + applicant.email)
