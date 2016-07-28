@@ -43,3 +43,9 @@ class Applicant(Person):
                 print(applicant.full_name)
                 school = City.get(City.name == applicant.location).school
                 cls.update(school=school).where(cls.id == applicant.id).execute()
+
+    @classmethod
+    def filter_applicant_by_school(cls, school):
+        applicants = [applicant for applicant in cls.select().where(cls.school == school)]
+        for applicant in applicants:
+            print(applicant.full_name + ": " + applicant.school.location)
