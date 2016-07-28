@@ -4,7 +4,8 @@ import os
 from models import *
 from applicant import *
 
-def print_menu(title, options,exit_message):
+
+def print_menu(title, options, exit_message):
 
     counter = 1
     print (30 * '-')
@@ -15,12 +16,14 @@ def print_menu(title, options,exit_message):
         counter += 1
     print("(0)" + "\t" + exit_message)
 
+
 def main_menu():
 
     options = ["Applicant",
                "Administrator",
                "Mentor"]
     print_menu("Main menu", options, "Exit program")
+
 
 def choice():
     choice = input('Enter your choice : ')
@@ -57,29 +60,22 @@ def applicant_menu():
     pw = input('Enter password: ')
 
 
-
-
 def administrator_menu():
     a = True
     while a:
         options = ['Generate application code',
-        'Find closest school',
-        ]
+                   'Find closest school',
+                   'Find interview slot']
         print_menu("Administrator menu", options, "Back to main menu")
         choice = int(input('Enter your choice: '))
         if choice == 1:
             Applicant.applicants_without_applicant_code()
         if choice == 2:
             Applicant.find_closest_school()
-
-
-
+        if choice == 3:
+            Applicant.applicants_without_interview_slot()
         if choice == 0:
             a = False
-
-
-
-
 
 
 def mentor_menu():
