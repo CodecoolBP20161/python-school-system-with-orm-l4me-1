@@ -1,6 +1,7 @@
 from models import *
 from school import *
 from city import *
+from interview_slot import *
 import string
 import random
 from person import *
@@ -13,13 +14,17 @@ class Applicant(Person):
     status = IntegerField(choices=[(0, 1, 2, 3), ('new', 'in progress', 'rejected', 'accepted')])
     application_code = CharField(null=True, unique=True)
 
+    @property
+    def full_name(self):
+        return self.first_name+" "+self.last_name
+
     @classmethod
     def applicants_without_applicant_code(cls):
         query = cls.select().where(cls.application_code >> None)
         if query:
             print("The following applicants have no application code: \n")
             for applicant in query:
-                print(applicant.first_name, applicant.last_name)
+                print(applicant.full_name)
                 applicant.generate_application_code()
 
     def generate_application_code(self):
@@ -35,15 +40,6 @@ class Applicant(Person):
         if query:
             print("The following applicants have no school connected: \n")
             for applicant in query:
-                print(applicant.first_name, applicant.last_name)
+                print(applicant.full_name)
                 school = City.get(City.name == applicant.location).school
                 cls.update(school=school).where(cls.id == applicant.id).execute()
-
-    @classmethod
-    def applicants_without_interview_slot(cls):
-        query = cls.select().where(cls.interview >> None)
-        if query:
-            print("The following applicants have no interview time assigned: \n")
-            for applicant in query:
-                print(applicant.first_name, applicant.last_name)
-                applicant.find_interview_slot()

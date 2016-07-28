@@ -8,5 +8,16 @@ class Interview(BaseModel):
     interview_detail = ForeignKeyField(InterviewSlot, related_name='interview')
 
     @classmethod
-    def assign_interview_to_new_applicant(cls, app, slot):
-        cls.create(application_code=app, interview_detail=slot)
+    def applicants_without_interview_slot(cls):
+        for applicant in Applicant.select().where(Applicant.status == 1):
+            assigned = False
+            if cls.select().where(cls.application_code == applicant.application_code):
+                assigned = True
+            if not assigned:
+                print(applicant.full_name+": ", end='')
+                slot = InterviewSlot.find_interview_slot()
+                if slot:
+                    cls.create(application_code=applicant, interview_detail=slot)
+                    print("New interview booked")
+                else:
+                    print("All interview slot booked. Better luck next time")

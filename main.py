@@ -3,6 +3,7 @@ import os
 
 from models import *
 from applicant import *
+from interview import *
 
 
 def print_menu(title, options, exit_message):
@@ -73,7 +74,7 @@ def administrator_menu():
         if choice == 2:
             Applicant.find_closest_school()
         if choice == 3:
-            Applicant.applicants_without_interview_slot()
+            Interview.applicants_without_interview_slot()
         if choice == 0:
             a = False
 
