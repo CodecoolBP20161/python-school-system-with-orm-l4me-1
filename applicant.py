@@ -46,6 +46,5 @@ class Applicant(Person):
 
     @classmethod
     def filter_applicant_by_school(cls, school):
-        applicants = [applicant for applicant in cls.select().where(cls.school == school)]
-        for applicant in applicants:
+        for applicant in [applicant for applicant in cls.select().where(cls.school == school)]:
             print(applicant.full_name + ": " + applicant.school.location)
