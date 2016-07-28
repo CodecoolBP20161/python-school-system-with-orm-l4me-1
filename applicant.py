@@ -38,3 +38,12 @@ class Applicant(Person):
                 print(applicant.first_name, applicant.last_name)
                 school = City.get(City.name == applicant.location).school
                 cls.update(school=school).where(cls.id == applicant.id).execute()
+
+    @classmethod
+    def applicants_without_interview_slot(cls):
+        query = cls.select().where(cls.interview >> None)
+        if query:
+            print("The following applicants have no interview time assigned: \n")
+            for applicant in query:
+                print(applicant.first_name, applicant.last_name)
+                applicant.find_interview_slot()
