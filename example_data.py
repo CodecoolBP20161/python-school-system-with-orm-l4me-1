@@ -4,10 +4,14 @@ from models import *
 from applicant import *
 from school import *
 from city import *
+from interview_slot import *
+from mentor import *
 
 Applicant.delete().execute()
 City.delete().execute()
 School.delete().execute()
+InterviewSlot.delete().execute()
+Mentor.delete().execute()
 
 # SCHOOL example data
 miskolc2016 = School.create(location='Miskolc')
@@ -127,3 +131,106 @@ ap11 = Applicant.create(
     location='Lublin',
     time='2016-06-20',
     status=0)
+
+#  INTERVIEW SLOT example data
+iv_slot1 = InterviewSlot.create(
+    start='2016-06-20 8:00'
+    end='2016-06-20 9:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot2 = InterviewSlot.create(
+    start='2016-06-20 10:00'
+    end='2016-06-20 11:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot3 = InterviewSlot.create(
+    start='2016-06-20 13:00'
+    end='2016-06-20 14:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot4 = InterviewSlot.create(
+    start='2016-06-20 15:00'
+    end='2016-06-20 16:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot5 = InterviewSlot.create(
+    start='2016-06-21 8:00'
+    end='2016-06-21 9:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot6 = InterviewSlot.create(
+    start='2016-06-21 10:00'
+    end='2016-06-21 11:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot5 = InterviewSlot.create(
+    start='2016-06-21 13:00'
+    end='2016-06-21 14:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot6 = InterviewSlot.create(
+    start='2016-06-21 15:00'
+    end='2016-06-21 16:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot7 = InterviewSlot.create(
+    start='2016-06-22 8:00'
+    end='2016-06-22 9:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot8 = InterviewSlot.create(
+    start='2016-06-22 10:00'
+    end='2016-06-22 11:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot9 = InterviewSlot.create(
+    start='2016-06-22 13:00'
+    end='2016-06-22 14:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+iv_slot10 = InterviewSlot.create(
+    start='2016-06-22 15:00'
+    end='2016-06-22 16:00'
+    mentor=ForeignKeyField(Mentor, related_name='mentor_interviews')
+    available=True)
+
+#  MENTOR example data
+mentor1 = Mentor.create(
+    first_name='Miklós'
+    last_name='Beöthy'
+    email='mikibeöthy@cc.hu'
+    password='miki1'
+    school=ForeignKeyField(School, related_name='mentors'))
+
+mentor2 = Mentor.create(
+    first_name='Dániel'
+    last_name='Salamon'
+    email='danisalamon@cc.hu'
+    password='danika1'
+    school=ForeignKeyField(School, related_name='mentors'))
+
+mentor3 = Mentor.create(
+    first_name='Tamás'
+    last_name='Tompa'
+    email='tomitompa@cc.hu'
+    password='tomi1'
+    school=ForeignKeyField(School, related_name='mentors')
+    )
+
+mentor4 = Mentor.create(
+    first_name='Im'
+    last_name='Mánuel'
+    email='imanuel@cc.hu'
+    password='imi1'
+    school=ForeignKeyField(School, related_name='mentors'))
