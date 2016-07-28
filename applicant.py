@@ -55,3 +55,9 @@ class Applicant(Person):
         query = cls.select().where(cls.status == status)
         for applicant in query:
             print(applicant.full_name + ": " + status_codes[applicant.status])
+
+    @classmethod
+    def filter_applicant_by_location(cls, location):
+        applicants = [applicant for applicant in cls.select().where(cls.location == location)]
+        for applicant in applicants:
+            print(applicant.full_name + ": " + applicant.location)
