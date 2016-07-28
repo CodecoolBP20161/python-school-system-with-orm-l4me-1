@@ -48,3 +48,10 @@ class Applicant(Person):
     def filter_applicant_by_school(cls, school):
         for applicant in [applicant for applicant in cls.select().where(cls.school == school)]:
             print(applicant.full_name + ": " + applicant.school.location)
+
+    @classmethod
+    def filter_applicant_by_status(cls, status):
+        status_codes = {0: 'new', 1: 'in progress', 2: 'rejected', 3: 'accepted'}
+        query = cls.select().where(cls.status == status)
+        for applicant in query:
+            print(applicant.full_name + ": " + status_codes[applicant.status])
