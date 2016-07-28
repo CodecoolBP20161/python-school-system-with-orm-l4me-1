@@ -10,9 +10,9 @@ class InterviewSlot(BaseModel):
 
     @classmethod
     def find_interview_slot(cls, applicant_school):
-        query = cls.select().where(cls.available >> True).order_by(InterviewSlot.start)
+        query = cls.select().where(cls.available >> True).order_by(cls.start)
         if query:
             query = [slot for slot in query if slot.mentor.school == applicant_school]
             if query:
-                InterviewSlot.update(available=False).where(InterviewSlot.id == query[0].id).execute()
+                cls.update(available=False).where(cls.id == query[0].id).execute()
                 return query[0]

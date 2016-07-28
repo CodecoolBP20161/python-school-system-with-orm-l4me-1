@@ -163,6 +163,13 @@ mentor4 = Mentor.create(
     password='imi1',
     school=budapest2016)
 
+mentor5 = Mentor.create(
+    first_name='Mentor',
+    last_name='Miskolci',
+    email='miskolcimentor@cc.hu',
+    password='mentorka1',
+    school=miskolc2016)
+
 #  INTERVIEW SLOT example data
 iv_slot1 = InterviewSlot.create(
     start='2016-06-20 8:00',
@@ -234,4 +241,16 @@ iv_slot10 = InterviewSlot.create(
     start='2016-06-22 15:00',
     end='2016-06-22 16:00',
     mentor=mentor4,
+    available=True)
+
+iv_slot11 = InterviewSlot.create(
+    start='2016-06-22 15:00',
+    end='2016-06-22 16:00',
+    mentor=mentor5,
+    available=True)
+
+iv_slot12 = InterviewSlot.create(
+    start='2016-06-22 15:00',
+    end='2016-06-22 16:00',
+    mentor=mentor5,
     available=True)
