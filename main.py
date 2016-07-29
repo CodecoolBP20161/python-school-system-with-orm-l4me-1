@@ -23,7 +23,6 @@ def print_menu(title, options, exit_message):
 
 
 def main_menu():
-
     options = ["Applicant",
                "Administrator",
                "Mentor"]
@@ -34,7 +33,7 @@ def choice():
     choice = input('Enter your choice : ')
     if choice == '1':
         applicant_menu()
-    if choice == '2':
+    elif choice == '2':
         user_name = input('Enter username: ')
         if user_name == 'admin':
             pw = input('Enter password: ')
@@ -44,7 +43,7 @@ def choice():
                 print('Wrong password.Try again')
         else:
             print('Wrong username.Try again')
-    if choice == '3':
+    elif choice == '3':
         mentor_menu()
     elif choice == '0':
         sys.exit()
