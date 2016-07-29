@@ -92,9 +92,12 @@ class Applicant(Person):
     @classmethod
     def details_of_applicant(cls, application_code):
         status_codes = {0: 'new', 1: 'in progress', 2: 'rejected', 3: 'accepted'}
-        for applicant in [applicant for applicant in cls.select().where(cls.application_code == application_code)]:
-            print("\nYour status is "+status_codes[applicant.status], "\nYour assigned school is " +
-                  applicant.school.location)
+        applicant = cls.get(cls.application_code == application_code)
+        school = "not decided yet"
+        if applicant.school:
+            school = applicant.school.location
+        print("\nYour status is "+status_codes[applicant.status], "\nYour assigned school is " +
+              school)
 
     @classmethod
     def display_applicant_list(cls, applicants):
