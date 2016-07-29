@@ -4,7 +4,10 @@ import os
 from models import *
 from applicant import *
 from interview import *
+from interview_slot import *
 from school import *
+from mentor import *
+from city import *
 
 
 def print_menu(title, options, exit_message):
@@ -193,14 +196,33 @@ def mentor_menu():
 
 
 def main():
-    while True:
-        main_menu()
-        try:
-            choice()
-        except ValueError as err:
-            print("Something went wrong. Try again")
+    if connect_to_db():
+        existing_tables = True
+        models = [Applicant, School, City, Mentor, InterviewSlot, Interview]
+        for table in models:
+            existing_tables = existing_tables and table.table_exists()
+            if existing_tables:
+                filled_tables = True
+                for table in models[:-1]:
+                    filled_tables = filled_tables and table.select()
+                    if not filled_tables:
+                        loading = input("Do you want to load example records? (y/n):")
+                        if loading == "y":
+                            from example_data import load_example_data
+                            load_example_data()
+                    while True:
+                        main_menu()
+                        try:
+                            choice()
+                        except ValueError as err:
+                            print("Something went wrong. Try again")
+            else:
+                from build import build_tables
+                build_tables()
+                print("Necessary tables created")
+                main()
+    else:
+        print("'school_system' database needed. Please create database first")
 
 if __name__ == '__main__':
     main()
-
-    print_menu("Main menu", options, "Exit program")
