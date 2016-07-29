@@ -110,4 +110,7 @@ class Applicant(Person):
 
     def collect_data(self):
         status_codes = {0: 'new', 1: 'in progress', 2: 'rejected', 3: 'accepted'}
-        return [self.full_name, self.email, self.location, self.school.location, status_codes[self.status]]
+        school = "Not assigned"
+        if self.school:
+            school = self.school.location
+        return [self.full_name, self.email, self.location, school, status_codes[self.status]]
