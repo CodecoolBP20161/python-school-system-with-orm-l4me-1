@@ -23,6 +23,7 @@ def print_menu(title, options, exit_message):
 
 
 def main_menu():
+
     options = ["Applicant",
                "Administrator",
                "Mentor"]
@@ -150,8 +151,8 @@ def administrator_menu_applicants_school_filter():
             options.append(school.location)
         print_menu("Filter by School", options, "Back to admin menu")
         choice = input('Enter your choice: \n')
-        if choice in [str(i) for i in range(len(schools)+1)]:
-            Applicant.filter_applicant_by_school(schools[choice-1])
+        if choice in [str(i) for i in range(1, len(schools)+1)]:
+            Applicant.filter_applicant_by_school(schools[int(choice)-1])
         elif choice == "0":
             school_filter = False
         else:
@@ -167,8 +168,8 @@ def administrator_mentor_applicant():
             options.append(mentor.full_name)
         print_menu("Filter by Mentor name", options, "Back to admin menu")
         choice = input("Enter mentor's name: \n")
-        if choice in [str(i) for i in range(len(mentors)+1)]:
-            Interview.filter_applicant_by_mentor(mentors[choice-1])
+        if choice in [str(i) for i in range(1, len(mentors)+1)]:
+            Interview.filter_applicant_by_mentor(mentors[int(choice)-1])
         elif choice == "0":
             mentor_filter = False
         else:

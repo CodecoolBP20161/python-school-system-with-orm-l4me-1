@@ -26,9 +26,9 @@ class Interview(BaseModel):
     def filter_applicant_by_mentor(cls, mentor):
         from mentor import Mentor
         query = cls.select()
-        query = [interview for interview in query if interview.interview_slot.mentor == mentor]
-        for interview in query:
-            print(interview.applicant.full_name+": "+interview.interview_slot.mentor.full_name)
+        query = [interview.applicant for interview in query if interview.interview_slot.mentor == mentor]
+        if query:
+            Applicant.display_applicant_list(query)
 
     @classmethod
     def find_details_of_interview(cls, applicant):
