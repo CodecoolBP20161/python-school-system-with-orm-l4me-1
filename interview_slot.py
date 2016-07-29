@@ -16,3 +16,7 @@ class InterviewSlot(BaseModel):
             if query:
                 cls.update(available=False).where(cls.id == query[0].id).execute()
                 return query[0]
+
+    def display_details_of_interview(self):
+        print(str(self.start)[:-3] + "-" + str(self.end)[-8:-3] + " " + self.mentor.school.location +
+              " " + self.mentor.full_name)

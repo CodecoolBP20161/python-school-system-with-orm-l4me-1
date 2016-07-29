@@ -29,3 +29,7 @@ class Interview(BaseModel):
         query = [interview for interview in query if interview.interview_slot.mentor == mentor]
         for interview in query:
             print(interview.applicant.full_name+": "+interview.interview_slot.mentor.full_name)
+
+    @classmethod
+    def find_details_of_interview(cls, applicant):
+        cls.get(cls.applicant == applicant).interview_slot.display_details_of_interview()
