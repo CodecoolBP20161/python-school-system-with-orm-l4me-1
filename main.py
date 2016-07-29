@@ -55,22 +55,23 @@ def choice():
 def applicant_menu():
     application_code = input('\nEnter your application code: ')
     # query = Applicant.select().where(Applicant.application_code == application_code)
-    query = Applicant.get(Applicant.application_code == application_code)
-    if query:
-        a = True
-        while a:
-            options = ['Details of my application', 'Details of my interview']
-            print_menu('Applicant menu', options, "Back to main menu")
-            choice = input('Enter your choice: ')
-            if choice == '1':
-                Applicant.details_of_applicant(application_code)
-            elif choice == '2':
-                Interview.find_details_of_interview(query)
-            elif choice == '0':
-                a = False
-            else:
-                print("Invalid number. Try again...")
-    else:
+    try:
+        query = Applicant.get(Applicant.application_code == application_code)
+        if query:
+            a = True
+            while a:
+                options = ['Details of my application', 'Details of my interview']
+                print_menu('Applicant menu', options, "Back to main menu")
+                choice = input('Enter your choice: ')
+                if choice == '1':
+                    Applicant.details_of_applicant(application_code)
+                elif choice == '2':
+                    Interview.find_details_of_interview(query)
+                elif choice == '0':
+                    a = False
+                else:
+                    print("Invalid number. Try again...")
+    except:
         print("Application code does not exist. Please try again.")
 
 
