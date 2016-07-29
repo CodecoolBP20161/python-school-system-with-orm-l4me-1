@@ -48,8 +48,12 @@ class Applicant(Person):
     @classmethod
     def filter_applicant_by_status(cls, status):
         status_codes = {0: 'new', 1: 'in progress', 2: 'rejected', 3: 'accepted'}
+        in_this_status = False
         for applicant in [applicant for applicant in cls.select().where(cls.status == status)]:
             print(applicant.full_name + ": " + status_codes[applicant.status])
+            in_this_status = True
+        if in_this_status == False:
+            print("Nobady is in this status")
 
     @classmethod
     def filter_applicant_by_location(cls, location):
@@ -66,3 +70,13 @@ class Applicant(Person):
     def filter_applicant_by_email(cls, email):
         for applicant in [applicant for applicant in cls.select().where(cls.email.contains(email))]:
             print(applicant.full_name + ": " + applicant.email)
+
+    @classmethod
+    def detailes_of_applicant(cls, email, pw):
+        status_codes = {0: 'new', 1: 'in progress', 2: 'rejected', 3: 'accepted'}
+        applicant_code = input("Enter your applicant code: ")
+        for applicant in [applicant for applicant in cls.select().where(cls.email == email)]:
+            if applicant.application_code == applicant_code:
+                print("\nYour status is "+status_codes[applicant.status], "\nYour school is in " + applicant.school.location)
+            else:
+                print("This code is not existing in the database, try again later :)")
