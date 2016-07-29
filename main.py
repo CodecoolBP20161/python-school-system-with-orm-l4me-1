@@ -57,7 +57,7 @@ def applicant_menu():
     pw = input('Enter password: ')
     query = Applicant.select().where((Applicant.email == email) & (Applicant.password == pw))
     if query:
-        Applicant.detailes_of_applicant(email, pw)
+        Applicant.details_of_applicant(email, pw)
     else:
         print("wrong log in data")
 
