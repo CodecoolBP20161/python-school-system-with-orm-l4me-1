@@ -40,7 +40,6 @@ def load_example_data():
         first_name='Péter',
         last_name='Kovács',
         email='kovacspeter@cc.hu',
-        password='kovacspeter1',
         location='Budapest',
         time='2016-04-22',
         school=budapest2016,
@@ -51,7 +50,6 @@ def load_example_data():
         first_name='Judit',
         last_name='Tóth',
         email='tothjudit@cc.hu',
-        password='tothjudit2',
         location='Budapest',
         time='2016-04-24',
         status=0)
@@ -60,7 +58,6 @@ def load_example_data():
         first_name='Kinga',
         last_name='Ceglédi',
         email='cegledikinga@cc.hu',
-        password='cegledikinga3',
         location='Cegléd',
         time='2016-04-24',
         status=0)
@@ -69,7 +66,6 @@ def load_example_data():
         first_name='János',
         last_name='Veszprémi',
         email='veszpremijanos@cc.hu',
-        password='veszpremijanos4',
         location='Veszprém',
         time='2016-04-23',
         status=0)
@@ -78,7 +74,6 @@ def load_example_data():
         first_name='Ferenc',
         last_name='Váci',
         email='vaciferenc@cc.hu',
-        password='vaciferenc5',
         location='Vác',
         time='2016-05-02',
         status=0)
@@ -87,7 +82,6 @@ def load_example_data():
         first_name='Lajos',
         last_name='Győri',
         email='gyorilajos@cc.hu',
-        password='gyorilajos6',
         location='Győr',
         time='2016-05-04',
         status=0)
@@ -96,7 +90,6 @@ def load_example_data():
         first_name='Endre',
         last_name='Miskolci',
         email='miskolciendre@cc.hu',
-        password='miskolciendre7',
         location='Miskolc',
         time='2016-05-22',
         status=0)
@@ -105,7 +98,6 @@ def load_example_data():
         first_name='Lilla',
         last_name='Egri',
         email='egrililla@cc.hu',
-        password='egrililla8',
         location='Eger',
         time='2016-05-22',
         status=0)
@@ -114,7 +106,6 @@ def load_example_data():
         first_name='Zita',
         last_name='Debreceni',
         email='debrecenizita@cc.hu',
-        password='debrecenizita9',
         location='Debrecen',
         time='2016-05-13',
         status=0)
@@ -123,7 +114,6 @@ def load_example_data():
         first_name='Mateusz',
         last_name='Wojcik',
         email='mateuszwojcik@cc.pl',
-        password='mateuszwojcik10',
         location='Krakow',
         time='2016-06-16',
         status=0)
@@ -132,7 +122,6 @@ def load_example_data():
         first_name='Ania',
         last_name='Kaminski',
         email='aniakaminski@cc.pl',
-        password='aniakaminski11',
         location='Lublin',
         time='2016-06-20',
         status=0)
@@ -142,35 +131,30 @@ def load_example_data():
         first_name='Miklós',
         last_name='Beöthy',
         email='mikibeöthy@cc.hu',
-        password='miki1',
         school=budapest2016)
 
     mentor2 = Mentor.create(
         first_name='Dániel',
         last_name='Salamon',
         email='danisalamon@cc.hu',
-        password='danika1',
         school=budapest2016)
 
     mentor3 = Mentor.create(
         first_name='Tamás',
         last_name='Tompa',
         email='tomitompa@cc.hu',
-        password='tomi1',
         school=budapest2016)
 
     mentor4 = Mentor.create(
         first_name='Im',
         last_name='Mánuel',
         email='imanuel@cc.hu',
-        password='imi1',
         school=budapest2016)
 
     mentor5 = Mentor.create(
         first_name='Mentor',
         last_name='Miskolci',
         email='miskolcimentor@cc.hu',
-        password='mentorka1',
         school=miskolc2016)
 
     #  INTERVIEW SLOT example data
