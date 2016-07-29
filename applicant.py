@@ -88,7 +88,7 @@ class Applicant(Person):
 
     @classmethod
     def filter_applicant_by_time(cls, from_time, to_time):
-        query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time))
+        query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time)).order_by(cls.time)
         if query:
             for applicant in query:
                 print(str(applicant.time) + ': ' + applicant.full_name)

@@ -94,7 +94,7 @@ def administrator_applicants_info():
         if choice == '1':
             administrator_status()
         if choice == '2':
-            print("It's time to go home :D")
+            administrator_filter_by_time()
         if choice == '3':
             administrator_filter_by_location()
         if choice == '4':
@@ -102,7 +102,7 @@ def administrator_applicants_info():
         if choice == '5':
             administrator_menu_applicants_school_filter()
         if choice == '6':
-            administrator_mentor_applicat()
+            administrator_mentor_applicant()
         if choice == '0':
             admin_applicant_menu = False
         else:
@@ -146,7 +146,7 @@ def administrator_menu_applicants_school_filter():
             print("Invalid number. Try again...")
 
 
-def administrator_mentor_applicat():
+def administrator_mentor_applicant():
     mentor_filter = True
     while mentor_filter:
         mentors = Mentor.select()
@@ -165,12 +165,22 @@ def administrator_mentor_applicat():
 
 def administrator_filter_by_location():
     location = True
-    print("Press 0 to exit")
     while location:
         choice = input("Enter the city's name: \n")
         if choice == '0':
             location = False
         Applicant.filter_applicant_by_location(choice)
+
+
+def administrator_filter_by_time():
+    time = True
+    while time:
+        start = input("Enter start date (YYYY-MM-DD):")
+        end = input("Enter end date (YYYY-MM-DD):")
+        if start == '0' or end == '0':
+            time = False
+        else:
+            Applicant.filter_applicant_by_time(start, end)
 
 
 def administrator_filter_by_personal_data():
