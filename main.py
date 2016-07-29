@@ -93,17 +93,17 @@ def administrator_applicants_info():
         choice = input("Enter your choice: ")
         if choice == '1':
             administrator_status()
-        if choice == '2':
+        elif choice == '2':
             administrator_filter_by_time()
-        if choice == '3':
+        elif choice == '3':
             administrator_filter_by_location()
-        if choice == '4':
+        elif choice == '4':
             administrator_filter_by_personal_data()
-        if choice == '5':
+        elif choice == '5':
             administrator_menu_applicants_school_filter()
-        if choice == '6':
+        elif choice == '6':
             administrator_mentor_applicant()
-        if choice == '0':
+        elif choice == '0':
             admin_applicant_menu = False
         else:
             print("Invalid number. Try again...")
@@ -117,13 +117,13 @@ def administrator_status():
         choice = input("Enter your choice: \n")
         if choice == '1':
             Applicant.filter_applicant_by_status(0)
-        if choice == '2':
+        elif choice == '2':
             Applicant.filter_applicant_by_status(1)
-        if choice == '3':
+        elif choice == '3':
             Applicant.filter_applicant_by_status(2)
-        if choice == '4':
+        elif choice == '4':
             Applicant.filter_applicant_by_status(3)
-        if choice == '0':
+        elif choice == '0':
             status = False
         else:
             print("Invalid number. Try again...")
@@ -157,7 +157,7 @@ def administrator_mentor_applicant():
         choice = input("Enter mentor's name: \n")
         if choice in [str(i) for i in range(len(mentors)+1)]:
             Interview.filter_applicant_by_mentor(mentors[choice-1])
-        if choice == "0":
+        elif choice == "0":
             mentor_filter = False
         else:
             print("Invalid number. Try again...")
@@ -191,9 +191,9 @@ def administrator_filter_by_personal_data():
         choice = input("Enter your choice: \n")
         if choice == "1":
             administrator_personal_name()
-        if choice == "2":
+        elif choice == "2":
             administrator_personal_email()
-        if choice == "0":
+        elif choice == "0":
             personal_data = False
         else:
             print("Invalid number. Try again...")
