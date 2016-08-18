@@ -32,7 +32,7 @@ class Applicant(Person):
         Applicant.update(application_code=generated, status=1).where(Applicant.id == self.id).execute()
 
     @classmethod
-    def applicant_without_school_school(cls):
+    def applicants_without_school(cls):
         query = cls.select().where(cls.school >> None)
         if query:
             print("The following applicants have no school connected: \n")
