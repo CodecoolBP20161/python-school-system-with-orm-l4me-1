@@ -1,8 +1,8 @@
 text,parent,input_dict,module,method,filter_
 Main menu,,,,,
-Admin menu,Main menu,,,,login
-Mentor menu,Main menu,,,,login
-Applicant menu,Main menu,,,,login
+Admin menu,Main menu,,,,
+Mentor menu,Main menu,,,,
+Applicant menu,Main menu,,,,
 Generate application code,Admin menu,,Applicant,applicants_without_application_code,
 Find closest school,Admin menu,,Applicant,applicants_without_school,
 Find interview slot,Admin menu,,Interview,applicants_without_interview_slot,
