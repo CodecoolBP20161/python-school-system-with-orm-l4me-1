@@ -1,6 +1,7 @@
 from models import *
 from interview_slot import *
 from applicant import *
+from mentor import *
 
 
 class Interview(BaseModel):
@@ -21,11 +22,9 @@ class Interview(BaseModel):
 
     @classmethod
     def filter_applicant_by_mentor(cls, mentor):
-        from mentor import Mentor
         query = cls.select()
-        query = [interview.applicant for interview in query if interview.interview_slot.mentor == mentor]
-        if query:
-            Applicant.display_applicant_list(query)
+        Applicant.display_applicant_list(
+         [interview.applicant for interview in query if interview.interview_slot.mentor == mentor])
 
     @classmethod
     def details_of_interview(cls, application_code):

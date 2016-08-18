@@ -36,14 +36,17 @@ class Menu():
             [Menu.params.pop(i) for i in self.input.values()]
 
     def get_params(self):
-        return [Menu.params[self.filter]] if self.filter in Menu.params.keys() else [self.filter]
+        params = []
+        for i in self.filter:
+            params.append(Menu.params[i] if i in Menu.params.keys() else i)
+        return params
 
     def select_menu(self):
         param_list = []
+        if self.filter is not None:
+            param_list += self.get_params()
         if self.input:
-            param_list = self.set_params()
-        elif self.filter is not None:
-            param_list = self.get_params()
+            param_list += self.set_params()
         if self.module:
             getattr(globals().get(self.module), self.method)(*param_list)
             self.delete_params()

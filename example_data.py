@@ -26,19 +26,21 @@ def load_menustruct():
             if row["input_dict"]:
                 splitted = row["input_dict"].split("/")
                 row["input_dict"] = {splitted[2*i]: splitted[2*i+1] for i in range(len(splitted)//2)}
+            if row["filter_"]:
+                row["filter_"] = row["filter_"].split("/")
             Menu.menu_struct.append(Menu(**{k: v for k, v in row.items() if v}))
-    for i, school in enumerate(School.select()):
+    for school in School.select():
         Menu.menu_struct.append(Menu(text=school.location,
                                      parent="School",
                                      module="Applicant",
-                                     method="filter_applicant_by_school",
-                                     filter_=i))
-    for i, mentor in enumerate(Mentor.select()):
+                                     method="filter_applicant",
+                                     filter_=["school", school]))
+    for mentor in Mentor.select():
         Menu.menu_struct.append(Menu(text=mentor.full_name,
                                      parent="Mentor name",
                                      module="Interview",
                                      method="filter_applicant_by_mentor",
-                                     filter_=i))
+                                     filter_=[mentor]))
     return Menu.menu_struct
 
 

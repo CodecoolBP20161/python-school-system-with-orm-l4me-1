@@ -8,16 +8,16 @@ Find closest school,Admin menu,,Applicant,applicants_without_school,
 Find interview slot,Admin menu,,Interview,applicants_without_interview_slot,
 Applicants info,Admin menu,,,,
 Status,Applicants info,,,,
-Time,Applicants info,Enter start date (YYYY-MM-DD): /start/Enter end date (YYYY-MM-DD): /end,Applicant,filter_applicant_by_time,
-Location,Applicants info,Enter the city's name: /city,Applicant,filter_applicant_by_location,
+Time,Applicants info,Enter start date (YYYY-MM-DD): /start/Enter end date (YYYY-MM-DD): /end,Applicant,filter_applicant,time
+Location,Applicants info,Enter the city's name: /city,Applicant,filter_applicant,location
 Personal data,Applicants info,,,,
 School,Applicants info,,,,
 Mentor name,Applicants info,,,,
-New,Status,,Applicant,filter_applicant_by_status,0
-In progress,Status,,Applicant,filter_applicant_by_status,1
-Rejected,Status,,Applicant,filter_applicant_by_status,2
-Accepted,Status,,Applicant,filter_applicant_by_status,3
-Name,Personal data,Enter the name: /app_name,Applicant,filter_applicant_by_name,
-Email,Personal data,Enter the email: /app_email,Applicant,filter_applicant_by_email,
+New,Status,,Applicant,filter_applicant,status/0
+In progress,Status,,Applicant,filter_applicant,status/1
+Rejected,Status,,Applicant,filter_applicant,status/2
+Accepted,Status,,Applicant,filter_applicant,status/3
+Name,Personal data,Enter the name: /app_name,Applicant,filter_applicant,name
+Email,Personal data,Enter the email: /app_email,Applicant,filter_applicant,email
 Details of my application,Applicant menu,,Applicant,details_of_applicant,user
 Details of my interview,Applicant menu,,Interview,details_of_interview,user
