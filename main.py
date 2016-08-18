@@ -42,12 +42,10 @@ def menu_logic():
 
 def main():
     if connect_to_db():
-        tables = [Applicant, School, City, Mentor, InterviewSlot, Interview]
-        if all([i.table_exists() for i in tables]):
+        if all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot, Interview]]):
             load_menustruct()
-            if not all([i.select() for i in tables[:-1]]):
-                if input("Do you want to load example records? (y/n):") == "y":
-                    load_example_data()
+            if not Applicant.select() and input("Do you want to load example records? (y/n):") == "y":
+                load_example_data()
             menu_logic()
         else:
             build_tables()
