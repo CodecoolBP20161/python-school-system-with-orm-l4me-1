@@ -1,9 +1,10 @@
+import random
+import string
+import datetime
 from models import *
 from school import *
 from city import *
 from interview_slot import *
-import string
-import random
 from person import *
 
 
@@ -85,6 +86,8 @@ class Applicant(Person):
     @classmethod
     def filter_applicant_by_time(cls, from_time, to_time):
         try:
+            from_time = datetime.datetime.strptime(from_time, '%Y-%m-%d').date()
+            to_time = datetime.datetime.strptime(to_time, '%Y-%m-%d').date()
             query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time)).order_by(cls.time)
             cls.display_applicant_list(query) if query else print("No records found")
         except:
