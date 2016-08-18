@@ -51,7 +51,7 @@ class Menu():
             self.print_menu()
 
     def print_menu(self):
-        print("{0}\n{1}\n{0}".format("-"*30, self.text))
+        print("\n{0}\n{1}\n{0}".format("-"*30, self.text))
         for i, option in enumerate(self.submenus):
             print("({0})\t{1}".format(i+1, option.text))
-        print("(0)\tExit")
+        print("(0)\tExit\n")

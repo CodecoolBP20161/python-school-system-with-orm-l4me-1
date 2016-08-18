@@ -10,17 +10,14 @@ class Interview(BaseModel):
     @classmethod
     def applicants_without_interview_slot(cls):
         for applicant in Applicant.select().where(Applicant.status == 1).order_by(Applicant.time):
-            assigned = False
-            if cls.select().where(cls.applicant == applicant.id):
-                assigned = True
-            if not assigned:
-                print(applicant.full_name+": ", end='')
+            if not cls.select().where(cls.applicant == applicant.id):
                 slot = InterviewSlot.find_interview_slot(applicant.school)
                 if slot:
                     cls.create(applicant=applicant, interview_slot=slot)
-                    print("New interview booked")
+                    booked = "New interview booked"
                 else:
-                    print("No interview slots available in this applicant's school")
+                    booked = "No interview slots available in this applicant's school"
+                print("{}: {}".format(applicant.full_name, booked))
 
     @classmethod
     def filter_applicant_by_mentor(cls, mentor):

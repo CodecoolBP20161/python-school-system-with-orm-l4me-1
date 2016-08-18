@@ -12,34 +12,42 @@ class Applicant(Person):
     location = CharField()
     time = DateField()
     school = ForeignKeyField(School, related_name="applicants", null=True)
-    status = IntegerField(choices=[(0, 1, 2, 3), ("new", "in progress", "rejected", "accepted")])
+    status = IntegerField()
     application_code = CharField(null=True, unique=True)
+
+    @property
+    def get_status(self):
+        return {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}[self.status]
 
     @classmethod
     def applicants_without_application_code(cls):
         query = cls.select().where(cls.application_code >> None)
         if query:
-            print("The following applicants have no application code: \n")
-            for applicant in query:
-                print(applicant.full_name)
-                applicant.generate_application_code()
+            print("Some applicants have no application code")
+            if input("Want to generate it for them now? (y/n): ") == "y":
+                for applicant in query:
+                    applicant.generate_application_code()
+                    print("{}'s application code: {}".format(applicant.full_name, applicant.application_code))
 
     def generate_application_code(self):
         generated = None
-        while(generated is None or Applicant.select().where(Applicant.application_code == generated)):
+        while not generated or Applicant.select().where(Applicant.application_code == generated):
             abc = [string.digits, string.ascii_uppercase, string.ascii_lowercase]
             generated = "".join([random.choice(abc[abs(i)//2]) for i in range(-5, 6, 2)]) + "#&"
-        Applicant.update(application_code=generated, status=1).where(Applicant.id == self.id).execute()
+        self.application_code = generated
+        self.status = 1
+        self.save()
 
     @classmethod
     def applicants_without_school(cls):
         query = cls.select().where(cls.school >> None)
         if query:
-            print("The following applicants have no school connected: \n")
-            for applicant in query:
-                print(applicant.full_name)
-                school = City.get(City.name == applicant.location).school
-                cls.update(school=school).where(cls.id == applicant.id).execute()
+            print("Some applicants have no school connected")
+            if input("Want to connect them now? (y/n): ") == "y":
+                for applicant in query:
+                    school = City.get(City.name == applicant.location).school
+                    cls.update(school=school).where(cls.id == applicant.id).execute()
+                    print("{} registered in {} school.".format(applicant.full_name, school.location))
 
     @classmethod
     def filter_applicant_by_school(cls, school):
@@ -51,7 +59,6 @@ class Applicant(Person):
 
     @classmethod
     def filter_applicant_by_status(cls, status):
-        status_codes = {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}
         query = cls.select().where(cls.status == status)
         if query:
             cls.display_applicant_list(query)
@@ -95,12 +102,11 @@ class Applicant(Person):
 
     @classmethod
     def details_of_applicant(cls, application_code):
-        status_codes = {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}
         applicant = cls.get(cls.application_code == application_code)
         school = "not decided yet"
         if applicant.school:
             school = applicant.school.location
-        print("Your status is {}\nYour assigned school is {}".format(status_codes[applicant.status], school))
+        print("\nStatus: {}\nAssigned school: {}\n".format(applicant.get_status, school))
 
     @classmethod
     def display_applicant_list(cls, applicants):
@@ -115,8 +121,7 @@ class Applicant(Person):
             print(' '.join([i[j].ljust(k) for j, k in enumerate(max_width_per_column)]))
 
     def collect_data(self):
-        status_codes = {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}
         school = "Not assigned"
         if self.school:
             school = self.school.location
-        return [self.full_name, self.email, self.location, school, status_codes[self.status]]
+        return [self.full_name, self.email, self.location, school, self.get_status]
