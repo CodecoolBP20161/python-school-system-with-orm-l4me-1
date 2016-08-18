@@ -18,5 +18,6 @@ class InterviewSlot(BaseModel):
                 return query[0]
 
     def display_details_of_interview(self):
-        print(str(self.start)[:-3] + "-" + str(self.end)[-8:-3] + " " + self.mentor.school.location +
-              " " + self.mentor.full_name)
+        print("Details about your interview: ")
+        data = (str(self.start)[:-3], str(self.end)[-8:-3], self.mentor.school.location, self.mentor.full_name)
+        print("{d[0]}-{d[1]} {d[2]} {d[3]}".format(d=data))

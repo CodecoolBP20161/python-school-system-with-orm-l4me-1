@@ -1,5 +1,5 @@
 # This script can generate example data for "City" and "InterviewSlot" models.
-
+import csv
 from models import *
 from applicant import *
 from school import *
@@ -7,14 +7,39 @@ from city import *
 from interview_slot import *
 from interview import *
 from mentor import *
+from menu import *
 
 
-Interview.delete().execute()
-InterviewSlot.delete().execute()
-Applicant.delete().execute()
-City.delete().execute()
-Mentor.delete().execute()
-School.delete().execute()
+def main():
+    Interview.delete().execute()
+    InterviewSlot.delete().execute()
+    Applicant.delete().execute()
+    City.delete().execute()
+    Mentor.delete().execute()
+    School.delete().execute()
+
+
+def load_menustruct():
+    with open("menu.csv") as f:
+        data = csv.DictReader(f)
+        for row in data:
+            if row["input_dict"]:
+                splitted = row["input_dict"].split("/")
+                row["input_dict"] = {splitted[2*i]: splitted[2*i+1] for i in range(len(splitted)//2)}
+            Menu.menu_struct.append(Menu(**{k: v for k, v in row.items() if v}))
+    for i, school in enumerate(School.select()):
+        Menu.menu_struct.append(Menu(text=school.location,
+                                     parent="School",
+                                     module="Applicant",
+                                     method="filter_applicant_by_school",
+                                     filter_=i))
+    for i, mentor in enumerate(Mentor.select()):
+        Menu.menu_struct.append(Menu(text=mentor.full_name,
+                                     parent="Mentor name",
+                                     module="Interview",
+                                     method="filter_applicant_by_mentor",
+                                     filter_=i))
+    return Menu.menu_struct
 
 
 def load_example_data():
@@ -241,3 +266,6 @@ def load_example_data():
         end='2016-06-22 16:00',
         mentor=mentor5,
         available=True)
+
+if __name__ == '__main__':
+    main()

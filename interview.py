@@ -31,8 +31,9 @@ class Interview(BaseModel):
             Applicant.display_applicant_list(query)
 
     @classmethod
-    def find_details_of_interview(cls, applicant):
+    def details_of_interview(cls, application_code):
         try:
+            applicant = Applicant.get(Applicant.application_code == application_code)
             cls.get(cls.applicant == applicant).interview_slot.display_details_of_interview()
         except:
             print("You have no scheduled interview yet.")
