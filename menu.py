@@ -29,10 +29,7 @@ class Menu():
             [Menu.params.pop(i) for i in self.input.values()]
 
     def get_params(self):
-        params = []
-        for i in self.filter:
-            params.append(Menu.params[i] if i in Menu.params.keys() else i)
-        return params
+        return [Menu.params[i] if i in Menu.params.keys() else i for i in self.filter]
 
     def select_menu(self):
         param_list = []
