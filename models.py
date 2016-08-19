@@ -1,8 +1,5 @@
 from peewee import *
-
-# Configure your database connection here
-# database name = should be your username on your laptop
-# database user = should be your username on your laptop
+import sys
 
 db = PostgresqlDatabase('school_system')
 
@@ -10,9 +7,9 @@ db = PostgresqlDatabase('school_system')
 def connect_to_db():
     try:
         db.connect()
-        return True
     except:
-        return False
+        print("'school_system' database needed. Please create database first")
+        sys.exit()
 
 
 class BaseModel(Model):

@@ -41,18 +41,17 @@ def menu_logic():
 
 
 def main():
-    if connect_to_db():
-        if all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot, Interview]]):
-            if not Applicant.select() and input("Do you want to load example records? (y/n):") == "y":
-                load_example_data()
-            load_menustruct()
-            menu_logic()
-        else:
-            build_tables()
-            print("Necessary tables created")
-            main()
+    connect_to_db()
+    if all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot, Interview]]):
+        if not Applicant.select() and input("Do you want to load example records? (y/n):") == "y":
+            load_example_data()
+            print("Example data loaded")
+        load_menustruct()
+        menu_logic()
     else:
-        print("'school_system' database needed. Please create database first")
+        build_tables()
+        print("Necessary tables created")
+        main()
 
 if __name__ == '__main__':
     main()
