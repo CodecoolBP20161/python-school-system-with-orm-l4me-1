@@ -3,19 +3,16 @@ from interview import *
 
 
 class Menu():
-    new_id = 0
     menu_struct = []
     params = {}
 
     def __init__(self, text, parent=None, input_dict=None, module=None, method=None, filter_=None):
-        self.id_ = Menu.new_id
         self.text = text
         self.parent = next(i for i in Menu.menu_struct if i.text == parent) if parent else None
         self.input = input_dict
         self.module = module
         self.method = method
         self.filter = filter_
-        Menu.new_id += 1
 
     @property
     def submenus(self):

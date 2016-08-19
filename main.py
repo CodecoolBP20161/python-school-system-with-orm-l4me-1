@@ -30,7 +30,7 @@ def menu_logic():
             active = active.parent or sys.exit()
         elif not choice.isdigit() or int(choice) > len(options):
             print("Insert a valid option!")
-        elif active.id_ or login(int(choice)-1):
+        elif active.text != "Main menu" or login(int(choice)-1):
             selected = options[int(choice)-1]
             if not selected.module:
                 active = selected
