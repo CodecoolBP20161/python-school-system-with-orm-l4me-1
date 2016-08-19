@@ -1,9 +1,5 @@
 from applicant import *
 from interview import *
-from interview_slot import *
-from school import *
-from mentor import *
-from city import *
 
 
 class Menu():
