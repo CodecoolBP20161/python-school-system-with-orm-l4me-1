@@ -19,6 +19,10 @@ class Applicant(Person):
     def get_status(self):
         return {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}[self.status]
 
+    @property
+    def get_school(self):
+        return self.school.location if self.school else "not assigned yet"
+
     @classmethod
     def applicants_without_application_code(cls):
         query = cls.select().where(cls.application_code >> None)
@@ -74,28 +78,20 @@ class Applicant(Person):
     @classmethod
     def details_of_applicant(cls, application_code):
         applicant = cls.get(cls.application_code == application_code)
-        school = "not decided yet"
-        if applicant.school:
-            school = applicant.school.location
-        print("\nStatus: {}\nAssigned school: {}\n".format(applicant.get_status, school))
+        print("\nStatus: {}\nAssigned school: {}\n".format(applicant.get_status, applicant.get_school))
 
     @classmethod
     def display_applicant_list(cls, applicants=None):
         if applicants:
             titles = ["Full name", "E-mail", "City", "School", "Status"]
             table = [applicant.collect_data() for applicant in applicants]
-            table.insert(len(table), titles)
-            max_width_per_column = [max(y) for y in [[len(x[i]) for x in table] for i in range(len(table[0]))]]
-            table.pop()
-            print(' '.join([titles[j].ljust(k) for j, k in enumerate(max_width_per_column)]))
-            print('-'*(sum(max_width_per_column)+4))
+            columns = [max(y) for y in [[len(x[i]) for x in table+[titles]] for i in range(len(table[0]))]]
+            print(' '.join([titles[j].ljust(k) for j, k in enumerate(columns)]))
+            print('-'*(sum(columns)+4))
             for i in table:
-                print(' '.join([i[j].ljust(k) for j, k in enumerate(max_width_per_column)]))
+                print(' '.join([i[j].ljust(k) for j, k in enumerate(columns)]))
         else:
             print("No records found")
 
     def collect_data(self):
-        school = "Not assigned"
-        if self.school:
-            school = self.school.location
-        return [self.full_name, self.email, self.location, school, self.get_status]
+        return [self.full_name, self.email, self.location, self.get_school, self.get_status]
