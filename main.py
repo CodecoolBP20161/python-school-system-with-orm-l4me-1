@@ -12,12 +12,11 @@ from build import *
 
 def login(user):
     Menu.params['user'] = input(["Username: ", "Nick: ", "Application code: "][user])
-    if user == 0:
-        passw = input("Password: ")
-        if Menu.params['user'] == "admin" and passw == "admin":
-            return True
-    if user == 2:
+    if user == 0 and Menu.params['user'] == "admin" and input("Password: ") == "admin":
+        return True
+    elif user == 2:
         return Applicant.select().where(Applicant.application_code == Menu.params['user'])
+
 
 def menu_logic():
     active = Menu.menu_struct[0]

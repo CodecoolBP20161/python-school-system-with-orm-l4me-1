@@ -78,7 +78,7 @@ class Applicant(Person):
     @classmethod
     def details_of_applicant(cls, application_code):
         applicant = cls.get(cls.application_code == application_code)
-        print("\nStatus: {}\nAssigned school: {}\n".format(applicant.get_status, applicant.get_school))
+        print("\nStatus: {}\nAssigned school: {}".format(applicant.get_status, applicant.get_school))
 
     @classmethod
     def display_applicant_list(cls, applicants=None):

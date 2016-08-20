@@ -19,4 +19,4 @@ class InterviewSlot(BaseModel):
 
     def display_details_of_interview(self):
         data = (str(self.start)[:-3], str(self.end)[-8:-3], self.mentor.school.location, self.mentor.full_name)
-        print("\nDate: {d[0]}-{d[1]}\nLocation: {d[2]}\nMentor: {d[3]}\n".format(d=data))
+        print("\nDate: {d[0]}-{d[1]}\nLocation: {d[2]}\nMentor: {d[3]}".format(d=data))
