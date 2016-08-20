@@ -4,7 +4,6 @@ import datetime
 from models import *
 from school import *
 from city import *
-from interview_slot import *
 from person import *
 
 
