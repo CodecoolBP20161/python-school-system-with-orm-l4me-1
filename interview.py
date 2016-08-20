@@ -22,9 +22,8 @@ class Interview(BaseModel):
 
     @classmethod
     def filter_applicant_by_mentor(cls, mentor):
-        query = cls.select()
         Applicant.display_applicant_list(
-         [interview.applicant for interview in query if interview.interview_slot.mentor == mentor])
+         [interview.applicant for interview in cls.select() if interview.interview_slot.mentor == mentor])
 
     @classmethod
     def details_of_interview(cls, application_code):

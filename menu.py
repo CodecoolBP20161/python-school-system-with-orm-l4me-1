@@ -19,9 +19,7 @@ class Menu():
         return [i for i in Menu.menu_struct if i.parent == self]
 
     def set_params(self):
-        for k, v in self.input.items():
-            if v not in Menu.params.keys():
-                Menu.params[v] = input(k)
+        [Menu.params.update({v: input(k)}) for k, v in self.input.items()]
         return [Menu.params[i] for i in self.input.values()]
 
     def delete_params(self):
@@ -45,6 +43,5 @@ class Menu():
 
     def print_menu(self):
         print("\n{0}\n{1}\n{0}".format("-"*30, self.text))
-        for i, option in enumerate(self.submenus):
-            print("({0})\t{1}".format(i+1, option.text))
+        [print("({})\t{}".format(i+1, option.text)) for i, option in enumerate(self.submenus)]
         print("(0)\tExit\n")

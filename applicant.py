@@ -80,16 +80,14 @@ class Applicant(Person):
         applicant = cls.get(cls.application_code == application_code)
         print("\nStatus: {}\nAssigned school: {}".format(applicant.get_status, applicant.get_school))
 
-    @classmethod
-    def display_applicant_list(cls, applicants=None):
+    @staticmethod
+    def display_applicant_list(applicants=None):
         if applicants:
             titles = ["Full name", "E-mail", "City", "School", "Status"]
             table = [applicant.collect_data() for applicant in applicants]
             columns = [max(y) for y in [[len(x[i]) for x in table+[titles]] for i in range(len(table[0]))]]
-            print(' '.join([titles[j].ljust(k) for j, k in enumerate(columns)]))
-            print('-'*(sum(columns)+4))
-            for i in table:
-                print(' '.join([i[j].ljust(k) for j, k in enumerate(columns)]))
+            print(' '.join([titles[j].ljust(k) for j, k in enumerate(columns)])+'\n'+'-'*(sum(columns)+4))
+            [print(' '.join([i[j].ljust(k) for j, k in enumerate(columns)])) for i in table]
         else:
             print("No records found")
 
