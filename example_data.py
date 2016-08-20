@@ -1,6 +1,5 @@
 # This script can generate example data for "City" and "InterviewSlot" models.
 import csv
-from models import *
 from applicant import *
 from school import *
 from city import *

@@ -1,7 +1,6 @@
 import random
 import string
 import datetime
-from models import *
 from school import *
 from city import *
 from person import *
