@@ -91,3 +91,6 @@ class Applicant(Person):
 
     def collect_data(self):
         return [self.full_name, self.email, self.location, self.get_school, self.get_status]
+
+    def __str__(self):
+        return self.full_name + " " + self.email

@@ -4,13 +4,11 @@ from applicant import *
 from school import *
 from city import *
 from interview_slot import *
-from interview import *
 from mentor import *
 from menu import *
 
 
 def main():
-    Interview.delete().execute()
     InterviewSlot.delete().execute()
     Applicant.delete().execute()
     City.delete().execute()
@@ -37,7 +35,7 @@ def load_menustruct():
     for mentor in Mentor.select():
         Menu.menu_struct.append(Menu(text=mentor.full_name,
                                      parent="Mentor name",
-                                     module="Interview",
+                                     module="InterviewSlot",
                                      method="filter_applicant_by_mentor",
                                      filter_=[mentor]))
     return Menu.menu_struct

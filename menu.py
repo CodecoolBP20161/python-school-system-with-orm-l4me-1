@@ -1,5 +1,4 @@
 from applicant import *
-from interview import *
 
 
 class Menu():
