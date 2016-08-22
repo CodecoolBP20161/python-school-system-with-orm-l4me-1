@@ -1,5 +1,4 @@
 from peewee import *
-import sys
 
 db = PostgresqlDatabase('school_system')
 
@@ -9,7 +8,7 @@ def connect_to_db():
         db.connect()
     except:
         print("'school_system' database needed. Please create database first")
-        sys.exit()
+        exit()
 
 
 class BaseModel(Model):

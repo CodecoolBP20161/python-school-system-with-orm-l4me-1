@@ -22,10 +22,6 @@ class Menu():
         [Menu.params.update({v: input(k)}) for k, v in self.input.items()]
         return [Menu.params[i] for i in self.input.values()]
 
-    def delete_params(self):
-        if self.input:
-            [Menu.params.pop(i) for i in self.input.values()]
-
     def get_params(self):
         return [Menu.params[i] if i in Menu.params.keys() else i for i in self.filter]
 
@@ -37,7 +33,6 @@ class Menu():
             param_list += self.set_params()
         if self.module:
             getattr(globals().get(self.module), self.method)(*param_list)
-            self.delete_params()
         else:
             self.print_menu()
 
