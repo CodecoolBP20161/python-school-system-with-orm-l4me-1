@@ -15,7 +15,8 @@ class InterviewSlot(BaseModel):
             if not cls.select().where(cls.applicant == applicant.id):
                 slot = cls.find_interview_slot(applicant.school)
                 if slot:
-                    InterviewSlot.update(applicant=applicant).where(cls.id == slot.id).execute()
+                    for record in slot:
+                        InterviewSlot.update(applicant=applicant).where(cls.id == record.id).execute()
                     booked = "New interview booked"
                 else:
                     booked = "No interview slots available in this applicant's school"
@@ -25,9 +26,10 @@ class InterviewSlot(BaseModel):
     def find_interview_slot(cls, applicant_school):
         query = cls.select().where(cls.applicant >> None).order_by(cls.start)
         if query:
-            query = [slot for slot in query if slot.mentor.school == applicant_school]
-            if query:
-                return query[0]
+            for slot in query:
+                similar_slots = [i for i in query if applicant_school == i.mentor.school and i.start == slot.start]
+                if len(similar_slots) > 1:
+                    return similar_slots[:2]
 
     @classmethod
     def filter_applicant_by_mentor(cls, mentor):
