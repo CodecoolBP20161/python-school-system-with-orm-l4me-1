@@ -189,27 +189,27 @@ def load_example_data():
         available=True)
 
     iv_slot2 = InterviewSlot.create(
-        start='2016-06-20 10:00',
-        end='2016-06-20 11:00',
+        start='2016-06-20 8:00',
+        end='2016-06-20 9:00',
         mentor=mentor2,
         available=True)
 
     iv_slot3 = InterviewSlot.create(
-        start='2016-06-20 13:00',
-        end='2016-06-20 14:00',
-        mentor=mentor2,
-        available=True)
-
-    iv_slot4 = InterviewSlot.create(
-        start='2016-06-20 15:00',
-        end='2016-06-20 16:00',
+        start='2016-06-20 8:00',
+        end='2016-06-20 9:00',
         mentor=mentor3,
         available=True)
 
-    iv_slot5 = InterviewSlot.create(
-        start='2016-06-21 8:00',
-        end='2016-06-21 9:00',
+    iv_slot4 = InterviewSlot.create(
+        start='2016-06-21 10:00',
+        end='2016-06-21 11:00',
         mentor=mentor1,
+        available=True)
+
+    iv_slot5 = InterviewSlot.create(
+        start='2016-06-21 10:00',
+        end='2016-06-21 11:00',
+        mentor=mentor2,
         available=True)
 
     iv_slot6 = InterviewSlot.create(
@@ -225,8 +225,8 @@ def load_example_data():
         available=True)
 
     iv_slot6 = InterviewSlot.create(
-        start='2016-06-21 15:00',
-        end='2016-06-21 16:00',
+        start='2016-06-21 13:00',
+        end='2016-06-21 14:00',
         mentor=mentor3,
         available=True)
 
