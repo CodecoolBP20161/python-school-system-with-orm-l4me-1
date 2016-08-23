@@ -4,13 +4,12 @@ from applicant import *
 from school import *
 from city import *
 from interview_slot import *
-from interview import *
 from mentor import *
 from menu import *
+import random
 
 
 def main():
-    Interview.delete().execute()
     InterviewSlot.delete().execute()
     Applicant.delete().execute()
     City.delete().execute()
@@ -37,7 +36,7 @@ def load_menustruct():
     for mentor in Mentor.select():
         Menu.menu_struct.append(Menu(text=mentor.full_name,
                                      parent="Mentor name",
-                                     module="Interview",
+                                     module="InterviewSlot",
                                      method="filter_applicant_by_mentor",
                                      filter_=[mentor]))
     return Menu.menu_struct
@@ -183,90 +182,53 @@ def load_example_data():
         email='miskolcimentor@cc.hu',
         school=miskolc2016)
 
+    mentor6 = Mentor.create(
+        first_name='Mentor',
+        last_name='Ezisiskolci',
+        email='ezismiskolcimentor@cc.hu',
+        school=miskolc2016)
+
+    mentor6 = Mentor.create(
+        first_name='Mentor',
+        last_name='Krakow',
+        email='mentorkrakow@cc.hu',
+        school=krakow2016)
+
+    mentor7 = Mentor.create(
+        first_name='Mentor',
+        last_name='Krakowi',
+        email='mentorkrakowi@cc.hu',
+        school=krakow2016)
+
+    mentor8 = Mentor.create(
+        first_name='Mentor',
+        last_name='Krakow2',
+        email='mentorkrakow2@cc.hu',
+        school=krakow2016)
+
+    mentor9 = Mentor.create(
+        first_name='Mentor',
+        last_name='Ezisiskolci',
+        email='ezmegvegkeppmiskolcimentor2@cc.hu',
+        school=miskolc2016)
+
     #  INTERVIEW SLOT example data
-    iv_slot1 = InterviewSlot.create(
-        start='2016-06-20 8:00',
-        end='2016-06-20 9:00',
-        mentor=mentor1,
-        available=True)
-
-    iv_slot2 = InterviewSlot.create(
-        start='2016-06-20 10:00',
-        end='2016-06-20 11:00',
-        mentor=mentor2,
-        available=True)
-
-    iv_slot3 = InterviewSlot.create(
-        start='2016-06-20 13:00',
-        end='2016-06-20 14:00',
-        mentor=mentor2,
-        available=True)
-
-    iv_slot4 = InterviewSlot.create(
-        start='2016-06-20 15:00',
-        end='2016-06-20 16:00',
-        mentor=mentor3,
-        available=True)
-
-    iv_slot5 = InterviewSlot.create(
-        start='2016-06-21 8:00',
-        end='2016-06-21 9:00',
-        mentor=mentor1,
-        available=True)
-
-    iv_slot6 = InterviewSlot.create(
-        start='2016-06-21 10:00',
-        end='2016-06-21 11:00',
-        mentor=mentor3,
-        available=True)
-
-    iv_slot5 = InterviewSlot.create(
-        start='2016-06-21 13:00',
-        end='2016-06-21 14:00',
-        mentor=mentor2,
-        available=True)
-
-    iv_slot6 = InterviewSlot.create(
-        start='2016-06-21 15:00',
-        end='2016-06-21 16:00',
-        mentor=mentor3,
-        available=True)
-
-    iv_slot7 = InterviewSlot.create(
-        start='2016-06-22 8:00',
-        end='2016-06-22 9:00',
-        mentor=mentor1,
-        available=True)
-
-    iv_slot8 = InterviewSlot.create(
-        start='2016-06-22 10:00',
-        end='2016-06-22 11:00',
-        mentor=mentor4,
-        available=True)
-
-    iv_slot9 = InterviewSlot.create(
-        start='2016-06-22 13:00',
-        end='2016-06-22 14:00',
-        mentor=mentor1,
-        available=True)
-
-    iv_slot10 = InterviewSlot.create(
-        start='2016-06-22 15:00',
-        end='2016-06-22 16:00',
-        mentor=mentor4,
-        available=True)
-
-    iv_slot11 = InterviewSlot.create(
-        start='2016-06-22 15:00',
-        end='2016-06-22 16:00',
-        mentor=mentor5,
-        available=True)
-
-    iv_slot12 = InterviewSlot.create(
-        start='2016-06-22 15:00',
-        end='2016-06-22 16:00',
-        mentor=mentor5,
-        available=True)
+    generated_dates = []
+    for i in range(15):
+        school = random.choice(School.select())
+        mentors = [s for s in Mentor.select().where(Mentor.school == school)]
+        start_date, start_hour = None, None
+        while [start_date, start_hour] in generated_dates or not (start_date and start_hour):
+            start_date = random.randint(10, 17)
+            start_hour = random.randint(9, 16)
+        generated_dates.append([start_date, start_hour])
+        for k in range(random.randint(1, 3)):
+            mentor = random.choice(mentors)
+            mentors.remove(mentor)
+            iv_slot = InterviewSlot.create(start='2016-06-' + str(start_date) + ' ' + str(start_hour) + ':00',
+                                           end='2016-06-' + str(start_date) + ' ' + str(start_hour + 1) + ':00',
+                                           mentor=mentor,
+                                           available=True)
 
 if __name__ == '__main__':
     main()

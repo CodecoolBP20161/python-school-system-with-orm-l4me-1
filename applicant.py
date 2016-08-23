@@ -79,7 +79,7 @@ class Applicant(Person):
         print("\nStatus: {}\nAssigned school: {}".format(applicant.get_status, applicant.get_school))
 
     @staticmethod
-    def display_applicant_list(applicants=None):
+    def display_applicant_list(applicants):
         if applicants:
             titles = ["Full name", "E-mail", "City", "School", "Status"]
             table = [applicant.collect_data() for applicant in applicants]

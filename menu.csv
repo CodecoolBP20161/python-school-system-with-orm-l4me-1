@@ -5,7 +5,7 @@ Mentor menu,Main menu,,,,
 Applicant menu,Main menu,,,,
 Generate application code,Admin menu,,Applicant,applicants_without_application_code,
 Find closest school,Admin menu,,Applicant,applicants_without_school,
-Find interview slot,Admin menu,,Interview,applicants_without_interview_slot,
+Find interview slot,Admin menu,,InterviewSlot,applicants_without_interview_slot,
 Applicants info,Admin menu,,,,
 Status,Applicants info,,,,
 Time,Applicants info,Enter start date (YYYY-MM-DD): /start/Enter end date (YYYY-MM-DD): /end,Applicant,filter_applicant,time
@@ -20,4 +20,4 @@ Accepted,Status,,Applicant,filter_applicant,status/3
 Name,Personal data,Enter the name: /app_name,Applicant,filter_applicant,name
 Email,Personal data,Enter the email: /app_email,Applicant,filter_applicant,email
 Details of my application,Applicant menu,,Applicant,details_of_applicant,user
-Details of my interview,Applicant menu,,Interview,details_of_interview,user
+Details of my interview,Applicant menu,,InterviewSlot,details_of_interview,user

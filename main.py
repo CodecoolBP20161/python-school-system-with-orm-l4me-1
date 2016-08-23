@@ -1,6 +1,5 @@
 from models import *
 from applicant import *
-from interview import *
 from interview_slot import *
 from school import *
 from mentor import *
@@ -38,7 +37,7 @@ def menu_logic(active):
 
 def main():
     connect_to_db()
-    if not all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot, Interview]]):
+    if not all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot]]):
         build_tables()
         print("Necessary tables created")
         main()
