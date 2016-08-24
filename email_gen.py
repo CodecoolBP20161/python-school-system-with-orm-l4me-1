@@ -21,31 +21,26 @@ class EmailGen():
     def email_to_applicant_with_code(cls, person):
         cls.text = '<h2>Teszt </h2> <font color="green">OK</font></h2>'
         cls.reciever = person.full_name
-        cls.subject = 'qwdioqwjdioqjio'
+        cls.subject = 'applicant code'
         cls.send_email()
 
     @classmethod
     def send_email(cls):
         msg_content = cls.text
         message = MIMEText(msg_content, 'html')
-        message['From'] = 'Codecool Team {}'.format(cls.sender)
-        message['To'] = 'Receiver Name <l4mecc+{}@gmail.com>'.format(cls.reciever.lower().replace(' ', ''))
+        message['From'] = cls.sender
+        message['To'] = cls.reciever
         message['Cc'] = ''
         message['Subject'] = cls.subject
 
-        msg_full = message.as_string()
         try:
             smtpObj = SMTP('smtp.gmail.com:587')
-            print("wtf")
             smtpObj.starttls()
-            print("wtf")
             smtpObj.login(cls.sender, cls.passwd)
-            print("wtf")
-            print(cls.sender, 'l4mecc+{}@gmail.com'.format(cls.reciever.lower().replace(' ', '')), cls.text)
-            smtpObj.sendmail(cls.sender, 'l4mecc+{}@gmail.com'.format(cls.reciever[:1].lower().replace(' ', '')), msg_full)
+            smtpObj.sendmail(cls.sender, cls.reciever, cls.text)
             print("Succesfully sent email")
         except:
-            print("faiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiil")
+            print("fail")
         smtpObj.quit()
 
 applicant = Applicant.select()[0]
