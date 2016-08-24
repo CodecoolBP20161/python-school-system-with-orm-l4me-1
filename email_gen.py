@@ -18,13 +18,6 @@ class EmailGen():
     text = None
 
     @classmethod
-    def email_to_applicant_with_code(cls, person):
-        cls.text = '<h2>Teszt </h2> <font color="green">OK</font></h2>'
-        cls.reciever = person.full_name
-        cls.subject = 'applicant code'
-        cls.send_email()
-
-    @classmethod
     def send_email(cls):
         msg_content = cls.text
         message = MIMEText(msg_content, 'html')
@@ -42,6 +35,3 @@ class EmailGen():
         except:
             print("fail")
         smtpObj.quit()
-
-applicant = Applicant.select()[0]
-EmailGen.email_to_applicant_with_code(applicant)
