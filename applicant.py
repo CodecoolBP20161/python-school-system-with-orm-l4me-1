@@ -104,5 +104,3 @@ class Applicant(Person):
 
     def collect_data(self):
         return [self.full_name, self.email, self.location, self.get_school, self.get_status]
-
-Applicant.generate_appcode_email(Applicant.select()[0])
