@@ -48,7 +48,7 @@ class Applicant(Person):
         EmailGen.reciever = applicant.email
         with open('application_code_email.html') as f:
             text = f.read().replace('{applicant_name}', applicant.full_name)
-            text = text.replace('{application code}', applicant.application_code)
+            text = text.replace('{application_code}', applicant.application_code)
             text = text.replace('{city_name}', applicant.get_school)
         EmailGen.text = text
         EmailGen.send_email()

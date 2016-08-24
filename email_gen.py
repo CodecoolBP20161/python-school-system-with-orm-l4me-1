@@ -1,7 +1,3 @@
-from applicant import *
-from mentor import *
-from interview_slot import *
-from school import *
 from smtplib import *
 import json
 from email.mime.text import MIMEText
