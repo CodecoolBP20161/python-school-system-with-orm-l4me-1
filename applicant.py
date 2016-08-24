@@ -31,7 +31,6 @@ class Applicant(Person):
                 for applicant in query:
                     applicant.generate_application_code()
                     print("{}'s application code: {}".format(applicant.full_name, applicant.application_code))
-                    Applicant.generate_appcode_email(applicant)
 
     def generate_application_code(self):
         generated = None
@@ -63,6 +62,7 @@ class Applicant(Person):
                     school = City.get(City.name == applicant.location).school
                     cls.update(school=school).where(cls.id == applicant.id).execute()
                     print("{} registered in {} school.".format(applicant.full_name, school.location))
+                    cls.generate_appcode_email(applicant)
 
     @classmethod
     def filter_applicant(cls, filter_by, value, value_2=None):
