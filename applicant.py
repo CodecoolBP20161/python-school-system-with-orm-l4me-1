@@ -60,7 +60,8 @@ class Applicant(Person):
             if input("Want to connect them now? (y/n): ") == "y":
                 for applicant in query:
                     school = City.get(City.name == applicant.location).school
-                    cls.update(school=school).where(cls.id == applicant.id).execute()
+                    applicant.school = school
+                    applicant.save()
                     print("{} registered in {} school.".format(applicant.full_name, school.location))
                     cls.generate_appcode_email(applicant)
 

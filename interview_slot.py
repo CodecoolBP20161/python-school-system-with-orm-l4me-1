@@ -17,8 +17,8 @@ class InterviewSlot(BaseModel):
                 slot = cls.find_interview_slot(applicant.school)
                 if slot:
                     for record in slot:
-                        cls.update(applicant=applicant).where(cls.id == record.id).execute()
-                        cls.generate_interview_email(record.mentor, applicant)
+                        record.applicant = applicant
+                        record.save()
                     booked = "New interview booked"
                     cls.generate_interview_email(slot)
                 else:

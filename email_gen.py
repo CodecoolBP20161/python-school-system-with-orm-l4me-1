@@ -7,8 +7,8 @@ with open('login.json') as data_file:
 
 
 class EmailGen():
-    sender = 'l4mecc@gmail.com'
-    passwd = 'hipermagnum'
+    sender = data["sender"]
+    passwd = data["passwd"]
     subject = None
     reciever = None
     text = None
