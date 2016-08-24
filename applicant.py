@@ -4,6 +4,7 @@ import datetime
 from school import *
 from city import *
 from person import *
+from email_gen import EmailGen
 
 
 class Applicant(Person):
@@ -41,6 +42,17 @@ class Applicant(Person):
         self.save()
 
     @classmethod
+    def generate_appcode_email(cls, applicant):
+        EmailGen.subject = 'CODECOOL APPLICATION STEP #1 - Your Application Code: {}'.format(applicant.application_code)
+        EmailGen.reciever = applicant.email
+        with open('application_code_email.html') as f:
+            text = f.read().replace('{applicant_name}', applicant.full_name)
+            text = text.replace('{application_code}', applicant.application_code)
+            text = text.replace('{city_name}', applicant.get_school)
+        EmailGen.text = text
+        EmailGen.send_email()
+
+    @classmethod
     def applicants_without_school(cls):
         query = cls.select().where(cls.school >> None)
         if query:
@@ -48,8 +60,10 @@ class Applicant(Person):
             if input("Want to connect them now? (y/n): ") == "y":
                 for applicant in query:
                     school = City.get(City.name == applicant.location).school
-                    cls.update(school=school).where(cls.id == applicant.id).execute()
+                    applicant.school = school
+                    applicant.save()
                     print("{} registered in {} school.".format(applicant.full_name, school.location))
+                    cls.generate_appcode_email(applicant)
 
     @classmethod
     def filter_applicant(cls, filter_by, value, value_2=None):
