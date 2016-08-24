@@ -30,6 +30,7 @@ class Applicant(Person):
                 for applicant in query:
                     applicant.generate_application_code()
                     print("{}'s application code: {}".format(applicant.full_name, applicant.application_code))
+                    generate_appcode_email(applicant)
 
     def generate_application_code(self):
         generated = None

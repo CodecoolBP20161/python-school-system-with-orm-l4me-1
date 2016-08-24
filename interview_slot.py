@@ -17,10 +17,12 @@ class InterviewSlot(BaseModel):
                 if slot:
                     for record in slot:
                         InterviewSlot.update(applicant=applicant).where(cls.id == record.id).execute()
+                        generate_interview_email(record.mentor)
                     booked = "New interview booked"
                 else:
                     booked = "No interview slots available in this applicant's school"
                 print("{}: {}".format(applicant.full_name, booked))
+                generate_interview_email(applicant)
 
     @classmethod
     def find_interview_slot(cls, applicant_school):
