@@ -26,11 +26,13 @@ class EmailGen():
         message['Cc'] = ''
         message['Subject'] = cls.subject
 
+        msg_full = message.as_string()
+
         try:
             smtpObj = SMTP('smtp.gmail.com:587')
             smtpObj.starttls()
             smtpObj.login(cls.sender, cls.passwd)
-            smtpObj.sendmail(cls.sender, cls.reciever, cls.text)
+            smtpObj.sendmail(cls.sender, cls.reciever, msg_full)
             print("Succesfully sent email")
         except:
             print("fail")
