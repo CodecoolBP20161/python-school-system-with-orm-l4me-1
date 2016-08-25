@@ -71,7 +71,6 @@ class InterviewSlot(BaseModel):
 
     @classmethod
     def filter_interview(cls, filter_by, value, value_2=None):
-        print(filter_by)
         if filter_by == "school":
             query = [i for i in cls.select() if i.mentor.school == value]
         elif filter_by == "mentor":

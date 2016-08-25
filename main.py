@@ -9,11 +9,15 @@ from build import *
 from email_gen import *
 
 
-
 def login(user):
     Menu.params['user'] = input(["Username: ", "Nick: ", "Application code: "][user])
     if user == 0:
         return Menu.params['user'] == "admin" and input("Password: ") == "admin"
+    elif user == 1:
+        query = Mentor.select().where(Mentor.nick == Menu.params['user'])
+        if query and input("Password: ") == query[0].password:
+            Menu.params['user'] = query[0]
+            return True
     elif user == 2:
         return Applicant.select().where(Applicant.application_code == Menu.params['user'])
 
