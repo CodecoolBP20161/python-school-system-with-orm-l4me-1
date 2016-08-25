@@ -26,3 +26,4 @@ Name,Personal data,Enter the name: /app_name,Applicant,filter_applicant,name
 Email,Personal data,Enter the email: /app_email,Applicant,filter_applicant,email
 Details of my application,Applicant menu,,Applicant,details_of_applicant,user
 Details of my interview,Applicant menu,,InterviewSlot,details_of_interview,user
+Details of my interviews,Mentor menu,,InterviewSlot,filter_interview,mentor/user
