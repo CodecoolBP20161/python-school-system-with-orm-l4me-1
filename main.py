@@ -6,6 +6,8 @@ from mentor import *
 from city import *
 from example_data import *
 from build import *
+from email_gen import *
+
 
 
 def login(user):
@@ -37,6 +39,7 @@ def menu_logic(active):
 
 def main():
     connect_to_db()
+    EmailGen.check_smtp_requirements()
     if not all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot]]):
         build_tables()
         print("Necessary tables created")

@@ -30,7 +30,6 @@ class Applicant(Person):
             if input("Want to generate it for them now? (y/n): ") == "y":
                 for applicant in query:
                     applicant.generate_application_code()
-                    print("{}'s application code: {}".format(applicant.full_name, applicant.application_code))
 
     def generate_application_code(self):
         generated = None
@@ -40,15 +39,15 @@ class Applicant(Person):
         self.application_code = generated
         self.status = 1
         self.save()
+        print("{}'s application code: {}".format(self.full_name, self.application_code))
 
-    @classmethod
-    def generate_appcode_email(cls, applicant):
-        EmailGen.subject = 'CODECOOL APPLICATION STEP #1 - Your Application Code: {}'.format(applicant.application_code)
-        EmailGen.reciever = applicant.email
+    def generate_appcode_email(self):
+        EmailGen.subject = 'CODECOOL APPLICATION STEP #1 - Your Application Code: {}'.format(self.application_code)
+        EmailGen.reciever = self.email
         with open('application_code_email.html') as f:
-            text = f.read().replace('{applicant_name}', applicant.full_name)
-            text = text.replace('{application_code}', applicant.application_code)
-            text = text.replace('{city_name}', applicant.get_school)
+            text = f.read().replace('{applicant_name}', self.full_name)
+            text = text.replace('{application_code}', self.application_code)
+            text = text.replace('{city_name}', self.get_school)
         EmailGen.text = text
         EmailGen.send_email()
 
@@ -63,7 +62,7 @@ class Applicant(Person):
                     applicant.school = school
                     applicant.save()
                     print("{} registered in {} school.".format(applicant.full_name, school.location))
-                    cls.generate_appcode_email(applicant)
+                    applicant.generate_appcode_email()
 
     @classmethod
     def filter_applicant(cls, filter_by, value, value_2=None):
