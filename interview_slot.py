@@ -85,27 +85,34 @@ class InterviewSlot(BaseModel):
             except:
                 print("Use date formatum (YYYY-MM-DD)!")
                 return
-        cls.display_interview_list([i for i in query if i.applicant])
+        if value_2 filter_by == "mentor":
+            cls.display_interview_list([i for i in query if i.applicant], False)
+        else:
+            cls.display_interview_list([i for i in query if i.applicant])
 
     @staticmethod
-    def display_interview_list(interviews):
+    def display_interview_list(interviews, default=True):
         if interviews:
-            titles = ["Application code", "Applicant", "School", "Start", "End", "Mentor"]
-            table = [interview.collect_data() for interview in interviews]
+            titles = ["Application code", "Applicant", "School", "Start", "End"]
+            if default:
+                titles += ["Mentor"]
+            table = [interview.collect_data(default) for interview in interviews]
             columns = [max(y) for y in [[len(x[i]) for x in table+[titles]] for i in range(len(table[0]))]]
             print(' '.join([titles[j].ljust(k) for j, k in enumerate(columns)])+'\n'+'-'*(sum(columns)+4))
             [print(' '.join([i[j].ljust(k) for j, k in enumerate(columns)])) for i in table]
         else:
             print("No records found")
 
-    def collect_data(self):
-        applicant = self.applicant.full_name
-        app_code = self.applicant.application_code
-        school = self.applicant.school.location
-        start = str(self.start)
-        end = str(self.end)
-        mentor = self.mentor.full_name
-        return [app_code, applicant, school, start, end, mentor]
+    def collect_data(self, default):
+        data = []
+        data.append(self.applicant.full_name)
+        data.append(self.applicant.application_code)
+        data.append(self.applicant.school.location)
+        data.append(str(self.start))
+        data.append(str(self.end))
+        if default:
+            data.append(self.mentor.full_name)
+        return data
 
     def display_details_of_interview(self, interview):
         data = (str(self.start)[:-3], str(self.end)[-8:-3], self.mentor.school.location, self.mentor.full_name)
