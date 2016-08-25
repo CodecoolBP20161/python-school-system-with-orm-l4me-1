@@ -9,7 +9,7 @@ Find interview slot,Admin menu,,InterviewSlot,applicants_without_interview_slot,
 Applicants info,Admin menu,,,,
 Interviews,Admin menu,,,,
 Interview's School,Interviews,,,,
-Application code,Interviews,Enter application code: /app_code,InterviewSlot,filter_interview,app_code
+Application code,Interviews,Enter application code: /appl_code,InterviewSlot,filter_interview,app_code
 Interview's Mentor,Interviews,,,,
 Date,Interviews,Enter from date (YYYY-MM-DD): /from/Enter to date (YYYY-MM-DD): /to,InterviewSlot,filter_interview,time
 Status,Applicants info,,,,

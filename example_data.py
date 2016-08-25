@@ -44,13 +44,13 @@ def load_menustruct():
                                      parent="Interview's School",
                                      module="InterviewSlot",
                                      method="filter_interview",
-                                     filter=["school", school]))
+                                     filter_=["school", school]))
     for mentor in Mentor.select():
         Menu.menu_struct.append(Menu(text=mentor.full_name,
                                      parent="Interview's Mentor",
                                      module="InterviewSlot",
                                      method="filter_interview",
-                                     filter=["mentor", mentor]))
+                                     filter_=["mentor", mentor]))
     return Menu.menu_struct
 
 
