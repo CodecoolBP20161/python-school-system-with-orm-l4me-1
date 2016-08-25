@@ -7,12 +7,17 @@ Generate application code,Admin menu,,Applicant,applicants_without_application_c
 Find closest school,Admin menu,,Applicant,applicants_without_school,
 Find interview slot,Admin menu,,InterviewSlot,applicants_without_interview_slot,
 Applicants info,Admin menu,,,,
+Interviews,Admin menu,,,,
+Interview's School,Interviews,,,,
+Application code,Interviews,Enter application code: /appl_code,InterviewSlot,filter_interview,app_code
+Interview's Mentor,Interviews,,,,
+Date,Interviews,Enter from date (YYYY-MM-DD): /from/Enter to date (YYYY-MM-DD): /to,InterviewSlot,filter_interview,time
 Status,Applicants info,,,,
 Time,Applicants info,Enter start date (YYYY-MM-DD): /start/Enter end date (YYYY-MM-DD): /end,Applicant,filter_applicant,time
 Location,Applicants info,Enter the city's name: /city,Applicant,filter_applicant,location
 Personal data,Applicants info,,,,
-School,Applicants info,,,,
-Mentor name,Applicants info,,,,
+Applicant's School,Applicants info,,,,
+Applicant's mentor name,Applicants info,,,,
 New,Status,,Applicant,filter_applicant,status/0
 In progress,Status,,Applicant,filter_applicant,status/1
 Rejected,Status,,Applicant,filter_applicant,status/2

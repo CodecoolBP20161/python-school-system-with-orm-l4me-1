@@ -29,16 +29,28 @@ def load_menustruct():
             Menu.menu_struct.append(Menu(**{k: v for k, v in row.items() if v}))
     for school in School.select():
         Menu.menu_struct.append(Menu(text=school.location,
-                                     parent="School",
+                                     parent="Applicant's School",
                                      module="Applicant",
                                      method="filter_applicant",
                                      filter_=["school", school]))
     for mentor in Mentor.select():
         Menu.menu_struct.append(Menu(text=mentor.full_name,
-                                     parent="Mentor name",
+                                     parent="Applicant's mentor name",
                                      module="InterviewSlot",
                                      method="filter_applicant_by_mentor",
                                      filter_=[mentor]))
+    for school in School.select():
+        Menu.menu_struct.append(Menu(text=school.location,
+                                     parent="Interview's School",
+                                     module="InterviewSlot",
+                                     method="filter_interview",
+                                     filter_=["school", school]))
+    for mentor in Mentor.select():
+        Menu.menu_struct.append(Menu(text=mentor.full_name,
+                                     parent="Interview's Mentor",
+                                     module="InterviewSlot",
+                                     method="filter_interview",
+                                     filter_=["mentor", mentor]))
     return Menu.menu_struct
 
 

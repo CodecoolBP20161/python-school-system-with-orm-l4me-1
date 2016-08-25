@@ -3,7 +3,6 @@ from models import *
 from applicant import *
 from email_gen import EmailGen
 
-
 class InterviewSlot(BaseModel):
     start = DateTimeField()
     end = DateTimeField()
@@ -69,6 +68,45 @@ class InterviewSlot(BaseModel):
             cls.get(cls.applicant == applicant, cls.id != interview.id).display_details_of_interview(interview)
         except:
             print("You have no scheduled interview yet.")
+
+    @classmethod
+    def filter_interview(cls, filter_by, value, value_2=None):
+        print(filter_by)
+        if filter_by == "school":
+            query = [i for i in cls.select() if i.mentor.school == value]
+        elif filter_by == "mentor":
+            query = cls.select().where(cls.mentor == value)
+        elif filter_by == "app_code":
+            query = [i for i in cls.select() if i.applicant and i.applicant.application_code == value]
+        elif filter_by == "time":
+            try:
+                from_time = datetime.datetime.strptime(value, '%Y-%m-%d').date()
+                to_time = datetime.datetime.strptime(value_2, '%Y-%m-%d').date() + datetime.timedelta(days=1)
+                query = cls.select().where((cls.start >= from_time) & (cls.start <= to_time)).order_by(cls.start)
+            except:
+                print("Use date formatum (YYYY-MM-DD)!")
+                return
+        cls.display_interview_list([i for i in query if i.applicant])
+
+    @staticmethod
+    def display_interview_list(interviews):
+        if interviews:
+            titles = ["Application code", "Applicant", "School", "Start", "End", "Mentor"]
+            table = [interview.collect_data() for interview in interviews]
+            columns = [max(y) for y in [[len(x[i]) for x in table+[titles]] for i in range(len(table[0]))]]
+            print(' '.join([titles[j].ljust(k) for j, k in enumerate(columns)])+'\n'+'-'*(sum(columns)+4))
+            [print(' '.join([i[j].ljust(k) for j, k in enumerate(columns)])) for i in table]
+        else:
+            print("No records found")
+
+    def collect_data(self):
+        applicant = self.applicant.full_name
+        app_code = self.applicant.application_code
+        school = self.applicant.school.location
+        start = str(self.start)
+        end = str(self.end)
+        mentor = self.mentor.full_name
+        return [app_code, applicant, school, start, end, mentor]
 
     def display_details_of_interview(self, interview):
         data = (str(self.start)[:-3], str(self.end)[-8:-3], self.mentor.school.location, self.mentor.full_name)
