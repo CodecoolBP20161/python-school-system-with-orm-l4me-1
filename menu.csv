@@ -1,0 +1,29 @@
+text,parent,input_dict,module,method,filter_
+Main menu,,,,,
+Admin menu,Main menu,,,,
+Mentor menu,Main menu,,,,
+Applicant menu,Main menu,,,,
+Generate application code,Admin menu,,Applicant,applicants_without_application_code,
+Find closest school,Admin menu,,Applicant,applicants_without_school,
+Find interview slot,Admin menu,,InterviewSlot,applicants_without_interview_slot,
+Applicants info,Admin menu,,,,
+Interviews,Admin menu,,,,
+Interview's School,Interviews,,,,
+Application code,Interviews,Enter application code: /appl_code,InterviewSlot,filter_interview,app_code
+Interview's Mentor,Interviews,,,,
+Date,Interviews,Enter from date (YYYY-MM-DD): /from/Enter to date (YYYY-MM-DD): /to,InterviewSlot,filter_interview,time
+Status,Applicants info,,,,
+Time,Applicants info,Enter start date (YYYY-MM-DD): /start/Enter end date (YYYY-MM-DD): /end,Applicant,filter_applicant,time
+Location,Applicants info,Enter the city's name: /city,Applicant,filter_applicant,location
+Personal data,Applicants info,,,,
+Applicant's School,Applicants info,,,,
+Applicant's mentor name,Applicants info,,,,
+New,Status,,Applicant,filter_applicant,status/0
+In progress,Status,,Applicant,filter_applicant,status/1
+Rejected,Status,,Applicant,filter_applicant,status/2
+Accepted,Status,,Applicant,filter_applicant,status/3
+Name,Personal data,Enter the name: /app_name,Applicant,filter_applicant,name
+Email,Personal data,Enter the email: /app_email,Applicant,filter_applicant,email
+Details of my application,Applicant menu,,Applicant,details_of_applicant,user
+Details of my interview,Applicant menu,,InterviewSlot,details_of_interview,user
+Details of my interviews,Mentor menu,,InterviewSlot,filter_interview,mentor/user/mentor_view
