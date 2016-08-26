@@ -33,6 +33,8 @@ class EmailGen():
         except IOError:
             print("Missing .json file. Please read README.md for instructions")
             exit()
+        except:
+            print("No internet connection. Emails won't be sent")
 
     @classmethod
     def send_email(cls):
@@ -52,5 +54,5 @@ class EmailGen():
             smtpObj.sendmail(cls.sender, cls.reciever, msg_full)
             print("Succesfully sent email")
         except:
-            print("fail")
+            print("Failed to send email")
         smtpObj.quit()

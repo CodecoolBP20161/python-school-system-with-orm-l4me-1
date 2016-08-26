@@ -156,52 +156,72 @@ def load_example_data():
     mentor1 = Mentor.create(
         first_name='Miklós',
         last_name='Beöthy',
-        school=budapest2016)
+        school=budapest2016,
+        nick='Miki',
+        password='mikipw')
 
     mentor2 = Mentor.create(
         first_name='Dániel',
         last_name='Salamon',
-        school=budapest2016)
+        school=budapest2016,
+        nick='Dani',
+        password='danipw')
 
     mentor3 = Mentor.create(
         first_name='Tamás',
         last_name='Tompa',
-        school=budapest2016)
+        school=budapest2016,
+        nick='Tomi',
+        password='tomipw')
 
     mentor4 = Mentor.create(
         first_name='Im',
         last_name='Mánuel',
-        school=budapest2016)
+        school=budapest2016,
+        nick='Im',
+        password='impw')
 
     mentor5 = Mentor.create(
         first_name='Mentor',
         last_name='Miskolci',
-        school=miskolc2016)
+        school=miskolc2016,
+        nick='Mentorm1',
+        password='m1pw')
 
     mentor6 = Mentor.create(
         first_name='Mentor',
         last_name='Ezisiskolci',
-        school=miskolc2016)
+        school=miskolc2016,
+        nick='Mentorm2',
+        password='m2pw')
 
     mentor6 = Mentor.create(
         first_name='Mentor',
         last_name='Krakow',
-        school=krakow2016)
+        school=krakow2016,
+        nick='Mentork1',
+        password='k1pw')
 
     mentor7 = Mentor.create(
         first_name='Mentor',
         last_name='Krakowi',
-        school=krakow2016)
+        school=krakow2016,
+        nick='Mentork2',
+        password='k2pw')
 
     mentor8 = Mentor.create(
         first_name='Mentor',
         last_name='Krakow2',
-        school=krakow2016)
+        school=krakow2016,
+        nick='Mentork3',
+        password='k3pw')
 
     mentor9 = Mentor.create(
-        first_name='Mentor',
+        first_name='Mentor2',
         last_name='Ezisiskolci',
-        school=miskolc2016)
+        school=miskolc2016,
+        nick='Mentorm3',
+        password='m3pw')
 
     #  INTERVIEW SLOT example data
     generated_dates = []
