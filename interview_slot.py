@@ -85,7 +85,7 @@ class InterviewSlot(BaseModel):
             except:
                 print("Use date formatum (YYYY-MM-DD)!")
                 return
-        if value_2 filter_by == "mentor":
+        if value_2 and filter_by == "mentor":
             cls.display_interview_list([i for i in query if i.applicant], False)
         else:
             cls.display_interview_list([i for i in query if i.applicant])
