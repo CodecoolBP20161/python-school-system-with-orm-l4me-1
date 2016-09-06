@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template, redirect, flash, g
+from flask import Flask, request, url_for, render_template, redirect, flash, g, session
 from models import *
 from applicant import *
 from build import *
@@ -15,14 +15,20 @@ def homepage():
 
 @app.route('/apply', methods=['POST'])
 def applicant_apply():
-    Applicant.create(**request.form.to_dict())
-    flash('Succesfully applied to CODECOOL. You will receive an email with further information.')
-    return redirect(url_for('homepage'))
+    session["applicant"] = ""
+    if not Applicant.select().where(Applicant.real_email == request.form["real_email"]):
+        Applicant.create(**request.form.to_dict())
+        flash('Succesfully applied to CODECOOL. You will receive an email with further information.')
+        return redirect(url_for('homepage'))
+    else:
+        session["applicant"] = request.form.to_dict()
+        flash('Email address already exists in our records')
+        return redirect(url_for('application_form'))
 
 
 @app.route('/apply', methods=['GET'])
 def application_form():
-    return render_template('application_form.html')
+    return render_template('application_form.html', applicant=session.get("applicant"))
 
 
 @app.teardown_appcontext
