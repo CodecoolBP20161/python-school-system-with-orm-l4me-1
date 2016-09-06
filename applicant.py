@@ -9,10 +9,11 @@ from email_gen import EmailGen
 
 class Applicant(Person):
     location = CharField()
-    time = DateField()
+    time = DateField(default=datetime.date.today())
     school = ForeignKeyField(School, related_name="applicants", null=True)
-    status = IntegerField()
+    status = IntegerField(default=0)
     application_code = CharField(null=True, unique=True)
+    real_email = CharField(null=True)
 
     @property
     def get_status(self):

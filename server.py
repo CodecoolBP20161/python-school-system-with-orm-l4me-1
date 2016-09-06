@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template, redirect
+from flask import Flask, request, url_for, render_template, redirect, flash
 from models import *
 from applicant import *
 
@@ -18,8 +18,20 @@ def after_request(response):
 
 @app.route('/')
 def homepage():
-    appl = Applicant.get()
-    return appl.full_name
+    return render_template('index.html')
+
+
+@app.route('/apply', methods=['POST'])
+def applicant_apply():
+    Applicant.create(**request.form.to_dict())
+    flash('Succesfully applied to CODECOOL. You will receive an email with further information.')
+    return redirect(url_for('homepage'))
+
+
+@app.route('/apply', methods=['GET'])
+def applicant_apply():
+    return render_template('application_form.html')
+
 
 with app.app_context():
     app.run(debug=True)
