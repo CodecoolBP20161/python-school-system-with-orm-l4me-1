@@ -44,10 +44,7 @@ def menu_logic(active):
 def main():
     connect_to_db()
     EmailGen.check_smtp_requirements()
-    if not all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot]]):
-        build_tables()
-        print("Necessary tables created")
-        main()
+    build_tables()
     if not Applicant.select() and input("Do you want to load example records? (y/n):") == "y":
         load_example_data()
         print("Example data loaded")

@@ -1,19 +1,11 @@
-from flask import Flask, request, url_for, render_template, redirect, flash
+from flask import Flask, request, url_for, render_template, redirect, flash, g
 from models import *
 from applicant import *
+from build import *
 
+SECRET_KEY = 'l4me is cool'
 app = Flask('school_system-l4me')
-
-
-@app.before_request
-def before_request():
-    db.connect()
-
-
-@app.after_request
-def after_request(response):
-    db.close()
-    return response
+app.config.from_object(__name__)
 
 
 @app.route('/')
@@ -29,9 +21,17 @@ def applicant_apply():
 
 
 @app.route('/apply', methods=['GET'])
-def applicant_apply():
+def application_form():
     return render_template('application_form.html')
 
 
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
 with app.app_context():
+    connect_to_db()
+    build_tables()
     app.run(debug=True)
