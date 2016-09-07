@@ -6,13 +6,14 @@
         <title>l4me</title>
     </head>
     <body>
-        <h1>L4me school system</h1>
+        <h1><a href="{{ url_for('homepage') }}" class="home">
+        <img style= "vertical-align:middle" src="{{url_for('static', filename='codecool_small_logo.png')}}" alt="logo">L4me School System</a></h1>
+        <p><a href="{{url_for('application_form')}}" class="apply">Apply to CODECOOL</a>
+        <a href="{{url_for('homepage')}}" class="login">ADMIN Login</a>
+        <a href="{{url_for('homepage')}}" class="login">MENTOR Login</a></p>
         <p>{% for message in get_flashed_messages() %}
             {{ message }}
         {% endfor %}</p>
-        <a href="{{ url_for('homepage') }}">
-        <img src="{{url_for('static', filename='codecool_logo.jpg')}}" alt="logo" width="200" height="100"></a>
-        <p><a href="{{url_for('application_form')}}">Apply to CODECOOL</a></p>
         {% block body %}{% endblock %}
     </body>
 </html>
