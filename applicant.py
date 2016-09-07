@@ -9,10 +9,11 @@ from email_gen import EmailGen
 
 class Applicant(Person):
     location = CharField()
-    time = DateField()
+    time = DateField(default=datetime.date.today())
     school = ForeignKeyField(School, related_name="applicants", null=True)
-    status = IntegerField()
+    status = IntegerField(default=0)
     application_code = CharField(null=True, unique=True)
+    real_email = CharField(null=True)
 
     @property
     def get_status(self):
@@ -53,15 +54,15 @@ class Applicant(Person):
 
     @classmethod
     def applicants_without_school(cls):
-        query = cls.select().where(cls.school >> None)
+        query = cls.select().where((cls.school >> None) & (cls.status == 1))
         if query:
             print("Some applicants have no school connected")
             if input("Want to connect them now? (y/n): ") == "y":
                 for applicant in query:
-                    school = City.get(City.name == applicant.location).school
-                    applicant.school = school
+                    school = City.select().where(City.name == applicant.location)
+                    applicant.school = school[0].school if school else School.get(School.location == "Budapest")
                     applicant.save()
-                    print("{} registered in {} school.".format(applicant.full_name, school.location))
+                    print("{} registered in {} school.".format(applicant.full_name, applicant.school.location))
                     applicant.generate_appcode_email()
 
     @classmethod

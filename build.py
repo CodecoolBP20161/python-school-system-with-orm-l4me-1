@@ -8,4 +8,6 @@ from interview_slot import *
 
 
 def build_tables():
-    db.create_tables([Applicant, School, City, Mentor, InterviewSlot], safe=True)
+    if not all([i.table_exists() for i in [Applicant, School, City, Mentor, InterviewSlot]]):
+        db.create_tables([Applicant, School, City, Mentor, InterviewSlot], safe=True)
+        print("Necessary tables created")

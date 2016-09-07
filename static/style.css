@@ -1,0 +1,75 @@
+body{
+    background-image:url("codecool_bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family:"Arial", Georgia, Serif;
+    font-size: 100%;
+    color: #384439;
+}
+
+
+h2{
+    font-family:"Arial", Georgia, Serif;
+    font-size: 170%;
+    color: #384439;
+    text-shadow: 2px 2px 4px #FFFFFF;
+}
+
+a.home {
+    text-decoration: none;
+    font-family:"Arial", Georgia, Serif;
+    font-size: 160%;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+a.apply:link, a.apply:visited {
+    font-family:"Arial", Georgia, Serif;
+    background-color: #32c9c4;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px 10px;
+}
+
+a.apply:hover, a.apply:active {
+    background-color: #3283c9;
+    box-shadow: 2px 2px #999999
+}
+
+a.login {
+    font-family:"Arial", Georgia, Serif;
+    color: #3283c9;
+    border: 1px solid white;
+    background: #F5F5F5;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px 10px;
+}
+
+a.login:hover, a.login:active {
+    background-color: #FFFFFF;
+    box-shadow: 2px 2px #999999
+}
+
+input[type=submit] {
+    border: none;
+    padding: 8px 15px 8px 15px;
+    background: #3283c9;
+    color: #fff;
+    font-size: 100% ;
+    /*box-shadow: 1px 1px 4px #DADADA ;
+    -moz-box-shadow: 1px 1px 4px #DADADA ;
+    -webkit-box-shadow: 1px 1px 4px #DADADA ;*/
+    border-radius: 3px 4px;
+    /*-webkit-border-radius: 3px;
+    -moz-border-radius: 3px;*/
+}
+
+input[type=submit]:hover {
+    box-shadow: 2px 2px #999999
+}
