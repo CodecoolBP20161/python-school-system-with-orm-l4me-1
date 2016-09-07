@@ -15,20 +15,18 @@ def homepage():
 
 @app.route('/apply', methods=['POST'])
 def applicant_apply():
-    session["applicant"] = ""
     if not Applicant.select().where(Applicant.real_email == request.form["real_email"]):
         Applicant.create(**request.form.to_dict())
         flash('Succesfully applied to CODECOOL. You will receive an email with further information.')
-        return redirect(url_for('homepage'))
+        return (url_for('homepage'))
     else:
-        session["applicant"] = request.form.to_dict()
         flash('Email address already exists in our records')
-        return redirect(url_for('application_form'))
+        return application_form(request.form.to_dict())
 
 
 @app.route('/apply', methods=['GET'])
-def application_form():
-    return render_template('application_form.html', applicant=session.get("applicant"))
+def application_form(applicant=""):
+    return render_template('application_form.html', applicant=applicant)
 
 
 @app.teardown_appcontext
