@@ -2,10 +2,22 @@ from flask import Flask, request, url_for, render_template, redirect, flash, g, 
 from models import *
 from applicant import *
 from build import *
+from functools import wraps
 
 SECRET_KEY = 'l4me is cool'
 app = Flask('school_system-l4me')
 app.config.from_object(__name__)
+
+
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('You need to login first.')
+            return redirect(url_for('admin_login'))
+    return wrap
 
 
 @app.route('/')
@@ -37,14 +49,26 @@ def admin_login():
             flash('Invalid account. Try again')
             return render_template('login.html')
         else:
+            session['logged_in'] = True
+            flash('You were logged in.')
             return redirect(url_for('admin_page'))
     else:
         return render_template('login.html')
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out.')
+    return redirect(url_for('homepage'))
+
+
 @app.route('/adminpage')
+@login_required
 def admin_page():
     return render_template('admin_filterapplicant.html')
+
 
 @app.teardown_appcontext
 def close_connection(exception):
