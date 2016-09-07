@@ -29,6 +29,23 @@ def application_form(applicant=""):
     return render_template('application_form.html', applicant=applicant)
 
 
+@app.route('/adminlogin', methods=['POST', 'GET'])
+def admin_login():
+    query = User.get()
+    if request.method == 'POST':
+        if request.form['user_name'] != query.user_name or request.form['password'] != query.password:
+            flash('Invalid account. Try again')
+            return render_template('login.html')
+        else:
+            return redirect(url_for('admin_page'))
+    else:
+        return render_template('login.html')
+
+
+@app.route('/adminpage')
+def admin_page():
+    return render_template('admin_filterapplicant.html')
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
