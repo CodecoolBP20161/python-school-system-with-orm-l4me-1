@@ -4,6 +4,7 @@ from interview_slot import *
 from school import *
 from mentor import *
 from city import *
+from user import *
 from example_data import *
 from build import *
 from email_gen import *

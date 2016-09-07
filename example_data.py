@@ -5,6 +5,7 @@ from school import *
 from city import *
 from interview_slot import *
 from mentor import *
+from user import *
 from menu import *
 import random
 
@@ -71,6 +72,12 @@ def load_example_data():
     debrecen = City.create(name='Debrecen', school=miskolc2016)
     krakow = City.create(name='Krakow', school=krakow2016)
     lublin = City.create(name='Lublin', school=krakow2016)
+
+    # USER example data
+    admin1 = User.create(
+        user_name='admin',
+        password='admin',
+        access_right=0)
 
     # APPLICANT example data
     ap1 = Applicant.create(
