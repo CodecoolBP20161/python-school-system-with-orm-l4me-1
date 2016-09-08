@@ -10,6 +10,9 @@ class InterviewSlot(BaseModel):
     mentor = ForeignKeyField(Mentor)
     applicant = ForeignKeyField(Applicant, null=True)
 
+    class Meta:
+        order_by = ['start']
+
     @classmethod
     def applicants_without_interview_slot(cls):
         for applicant in Applicant.select().where(Applicant.status == 1).order_by(Applicant.time):

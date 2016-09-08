@@ -13,7 +13,7 @@ class Applicant(Person):
     school = ForeignKeyField(School, related_name="applicants", null=True)
     status = IntegerField(default=0)
     application_code = CharField(null=True, unique=True)
-    real_email = CharField(null=True)
+    real_email = CharField(unique=True)
 
     @property
     def get_status(self):
