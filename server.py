@@ -76,7 +76,7 @@ def admin_page():
             main_filter = request.form['main_filter']
             if request.form.get(main_filter):
                 subfilter = request.form[main_filter]
-            elif main_filter == 'date':
+            elif main_filter == 'time' and request.form['to_date']:
                 subfilter = request.form['from_date']
             if subfilter:
                 if main_filter == 'mentor':

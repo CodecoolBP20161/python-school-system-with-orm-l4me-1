@@ -63,6 +63,8 @@ a.login:hover, a.login:active {
 }
 
 a.logout {
+    text-decoration: none;
+    color: #3283c9;
 }
 
 input[type=submit] {
