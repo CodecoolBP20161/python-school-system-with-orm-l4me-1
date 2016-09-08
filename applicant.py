@@ -13,11 +13,13 @@ class Applicant(Person):
     school = ForeignKeyField(School, related_name="applicants", null=True)
     status = IntegerField(default=0)
     application_code = CharField(null=True, unique=True)
-    real_email = CharField(null=True)
+    real_email = CharField(unique=True)
+
+    STATUSDICT = {0: "New", 1: "In progress", 2: "Rejected", 3: "Accepted"}
 
     @property
     def get_status(self):
-        return {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}[self.status]
+        return Applicant.STATUSDICT[self.status]
 
     @property
     def get_school(self):
@@ -81,11 +83,12 @@ class Applicant(Person):
             try:
                 from_time = datetime.datetime.strptime(value, '%Y-%m-%d').date()
                 to_time = datetime.datetime.strptime(value_2, '%Y-%m-%d').date()
-                query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time)).order_by(cls.time)
+                query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time))
             except:
                 print("Use date formatum (YYYY-MM-DD)!")
                 return
         cls.display_applicant_list(query)
+        return query
 
     @classmethod
     def details_of_applicant(cls, application_code):

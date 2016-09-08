@@ -87,77 +87,88 @@ def load_example_data():
         time='2016-04-22',
         school=budapest2016,
         status=1,
-        application_code='dK85Pf#&')
+        application_code='dK85Pf#&',
+        real_email='pppkkk@gmail.com')
 
     ap2 = Applicant.create(
         first_name='Judit',
         last_name='Tóth',
         location='Budapest',
         time='2016-04-24',
-        status=0)
+        status=0,
+        real_email='jjjkkk@gmail.com')
 
     ap3 = Applicant.create(
         first_name='Kinga',
         last_name='Ceglédi',
         location='Cegléd',
         time='2016-04-24',
-        status=0)
+        status=0,
+        real_email='kkkccc@gmail.com')
 
     ap4 = Applicant.create(
         first_name='János',
         last_name='Veszprémi',
         location='Veszprém',
         time='2016-04-23',
-        status=0)
+        status=0,
+        real_email='jjjvvv@gmail.com')
 
     ap5 = Applicant.create(
         first_name='Ferenc',
         last_name='Váci',
         location='Vác',
         time='2016-05-02',
-        status=0)
+        status=0,
+        real_email='fffvvv@gmail.com')
 
     ap6 = Applicant.create(
         first_name='Lajos',
         last_name='Győri',
         location='Győr',
         time='2016-05-04',
-        status=0)
+        status=0,
+        real_email='lllggg@gmail.com')
 
     ap7 = Applicant.create(
         first_name='Endre',
         last_name='Miskolci',
         location='Miskolc',
         time='2016-05-22',
-        status=0)
+        status=0,
+        real_email='eeemmm@gmail.com')
 
     ap8 = Applicant.create(
         first_name='Lilla',
         last_name='Egri',
         location='Eger',
         time='2016-05-22',
-        status=0)
+        status=0,
+        real_email='llleee@gmail.com')
 
     ap9 = Applicant.create(
         first_name='Zita',
         last_name='Debreceni',
         location='Debrecen',
         time='2016-05-13',
-        status=0)
+        status=0,
+        real_email='zzzddd@gmail.com')
 
     ap10 = Applicant.create(
         first_name='Mateusz',
         last_name='Wojcik',
         location='Krakow',
         time='2016-06-16',
-        status=0)
+        status=0,
+        real_email='mmmwww@gmail.com')
 
     ap11 = Applicant.create(
         first_name='Ania',
         last_name='Kaminski',
         location='Lublin',
         time='2016-06-20',
-        status=0)
+        status=0,
+        real_email='aaakkk@gmail.com')
 
     #  MENTOR example data
     mentor1 = Mentor.create(
