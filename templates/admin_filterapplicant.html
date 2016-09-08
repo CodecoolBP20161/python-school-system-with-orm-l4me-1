@@ -24,8 +24,8 @@
         <div id="status" style="display: none">
             <input type="radio" name="status" value="0">New
             <input type="radio" name="status" value="1">In progress
-            <input type="radio" name="status" value="2">Accepted
-            <input type="radio" name="status" value="3">Rejected
+            <input type="radio" name="status" value="2">Rejected
+            <input type="radio" name="status" value="3">Accepted
         </div>
 
         <div id="date" style="display: none">
@@ -52,14 +52,16 @@
         </div>
 
         <div id="mentor" style="display: none">
+            <select name="mentor">
             {% for m in mentors %}
-            <input type="radio" name="mentor" value="{{m.id}}">{{m.full_name}}
+            <option value="{{m.id}}">{{m.full_name}}</option>
             {% endfor %}
+        </select>
         </div>
     </div>
 
     </fieldset></p>
-<p><input type="submit" value=Search></p>
+<p><input type="submit" value=Search> Filter: {{last_search}}</p>
 </form>
 
 <div style="overflow-x:auto;">

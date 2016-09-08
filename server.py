@@ -71,6 +71,7 @@ def logout():
 def admin_page():
     query = Applicant.select()
     subfilter = ""
+    applied_filter = ""
     if request.method == 'POST':
         if request.form.get('main_filter'):
             main_filter = request.form['main_filter']
@@ -78,16 +79,24 @@ def admin_page():
                 subfilter = request.form[main_filter]
             elif main_filter == 'time' and request.form['to_date']:
                 subfilter = request.form['from_date']
+                applied_filter = "{} / {}".format(subfilter, request.form['to_date'])
             if subfilter:
+                applied_filter = (applied_filter or Applicant.STATUSDICT.get(int(subfilter))
+                                  if subfilter.isdigit() else subfilter)
                 if main_filter == 'mentor':
-                    query = InterviewSlot.filter_applicant_by_mentor(mentor=Mentor.get(Mentor.id == subfilter))
+                    mentor = Mentor.get(Mentor.id == subfilter)
+                    query = InterviewSlot.filter_applicant_by_mentor(mentor=mentor)
+                    applied_filter = mentor.full_name
                 else:
+                    if main_filter == 'school':
+                        applied_filter = School.get(School.id == subfilter).location
                     query = Applicant.filter_applicant(filter_by=main_filter, value=subfilter,
                                                        value_2=request.form['to_date'])
             else:
                 flash('Please fill the subfilter')
     return render_template('admin_filterapplicant.html', records=query,
-                           schools=School.select(), mentors=Mentor.select())
+                           schools=School.select(), mentors=Mentor.select(),
+                           last_search=applied_filter or 'ALL RECORDS')
 
 
 @app.teardown_appcontext
