@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <title>l4me - ADMIN view</title>
 
-<form action="" method="GET">
+<form action="" method="post">
 <a href="{{url_for('logout')}}" class="logout">Logout</a>
     <p><fieldset class="mainfilter">
         <legend>Main filter</legend>
             <label for="status"><input type="radio" name="main_filter" value="status">Status
-            <label for="date"><input type="radio" name="main_filter" value="date">Application date
+            <label for="date"><input type="radio" name="main_filter" value="time">Application date
             <label for="location"><input type="radio" name="main_filter" value="location">Location
             <label for="name"><input type="radio" name="main_filter" value="name">Name
             <label for="email"><input type="radio" name="main_filter" value="email">Email
@@ -20,10 +20,10 @@
     <p><fieldset class="subfilter">
         <legend>Subfilter</legend>
 
-        <input type="checkbox" name="status" value="new">New
-        <input type="checkbox" name="status" value="in_progress">In progress
-        <input type="checkbox" name="status" value="accepted">Accepted
-        <input type="checkbox" name="status" value="rejected">Rejected
+        <input type="checkbox" name="status" value="0">New
+        <input type="checkbox" name="status" value="1">In progress
+        <input type="checkbox" name="status" value="2">Accepted
+        <input type="checkbox" name="status" value="3">Rejected
 
         <p>From:<input type="date" name="from_date">
         To:<input type="date" name="to_date"></p>
@@ -35,11 +35,11 @@
         <p>Email:<input type="text" name="email"></p>
 
         {% for s in schools %}
-        <input type="checkbox" name="school" value="{{i.id}}">{{i.location}}
+        <input type="checkbox" name="school" value="{{s.id}}">{{s.location}}
         {% endfor %}
 
         {% for m in mentors %}
-        <input type="checkbox" name="mentor" value="{{i.id}}">{{i.full_name}}
+        <input type="checkbox" name="mentor" value="{{m.id}}">{{m.full_name}}
         {% endfor %}
 
     </fieldset></p>
@@ -65,7 +65,8 @@
             <td>{{r.last_name}}</td>
             <td>{{r.location}}</td>
             <td>{{r.time}}</td>
-            <td>{{r.school}}</td>
+            <td>{{r.get_school}}</td>
+            <td>{{r.get_status}}</td>
             <td>{{r.email}}</td>
         </tr>
     {% endfor %}

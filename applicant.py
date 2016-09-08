@@ -67,6 +67,7 @@ class Applicant(Person):
 
     @classmethod
     def filter_applicant(cls, filter_by, value, value_2=None):
+        print('WTF???')
         if filter_by == "school":
             query = cls.select().where(cls.school == value)
         elif filter_by == "status":
@@ -86,6 +87,7 @@ class Applicant(Person):
                 print("Use date formatum (YYYY-MM-DD)!")
                 return
         cls.display_applicant_list(query)
+        return query
 
     @classmethod
     def details_of_applicant(cls, application_code):

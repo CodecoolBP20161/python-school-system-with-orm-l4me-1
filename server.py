@@ -3,6 +3,8 @@ from models import *
 from applicant import *
 from build import *
 from functools import wraps
+from school import *
+from mentor import *
 
 SECRET_KEY = 'l4me is cool'
 app = Flask('school_system-l4me')
@@ -64,10 +66,28 @@ def logout():
     return redirect(url_for('homepage'))
 
 
-@app.route('/adminpage')
+@app.route('/adminpage', methods=['GET', 'POST'])
 @login_required
 def admin_page():
-    return render_template('admin_filterapplicant.html')
+    query = Applicant.select()
+    subfilter = ""
+    if request.method == 'POST':
+        if request.form.get('main_filter'):
+            main_filter = request.form['main_filter']
+            if request.form.get(main_filter):
+                subfilter = request.form[main_filter]
+            elif main_filter == 'date':
+                subfilter = request.form['from_date']
+            if subfilter:
+                if main_filter == 'mentor':
+                    query = InterviewSlot.filter_applicant_by_mentor(mentor=Mentor.get(Mentor.id == subfilter))
+                else:
+                    query = Applicant.filter_applicant(filter_by=main_filter, value=subfilter,
+                                                       value_2=request.form['to_date'])
+            else:
+                flash('Please fill the subfilter')
+    return render_template('admin_filterapplicant.html', records=query,
+                           schools=School.select(), mentors=Mentor.select())
 
 
 @app.teardown_appcontext
