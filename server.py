@@ -53,7 +53,7 @@ def admin_login():
             flash('You were logged in.')
             return redirect(url_for('admin_page'))
     else:
-        return render_template('login.html')
+        return redirect(url_for('admin_page')) if session.get('logged_in') else render_template('login.html')
 
 
 @app.route('/logout')
