@@ -8,39 +8,55 @@
 <a href="{{url_for('logout')}}" class="logout">Logout</a>
     <p><fieldset class="mainfilter">
         <legend>Main filter</legend>
-            <label for="status"><input type="radio" name="main_filter" value="status">Status
-            <label for="date"><input type="radio" name="main_filter" value="time">Application date
-            <label for="location"><input type="radio" name="main_filter" value="location">Location
-            <label for="name"><input type="radio" name="main_filter" value="name">Name
-            <label for="email"><input type="radio" name="main_filter" value="email">Email
-            <label for="school"><input type="radio" name="main_filter" value="school">School
-            <label for="mentor"><input type="radio" name="main_filter" value="mentor">Mentor
+            <label for="status"><input onclick="filterHide();filterStatus();" type="radio" name="main_filter" value="status">Status
+            <label for="date"><input onclick="filterHide();filterDate();" type="radio" name="main_filter" value="time">Application date
+            <label for="location"><input onclick="filterHide();filterLocation();" type="radio" name="main_filter" value="location">Location
+            <label for="name"><input onclick="filterHide();filterName();" type="radio" name="main_filter" value="name">Name
+            <label for="email"><input onclick="filterHide();filterEmail();" type="radio" name="main_filter" value="email">Email
+            <label for="school"><input onclick="filterHide();filterSchool();" type="radio" name="main_filter" value="school">School
+            <label for="mentor"><input onclick="filterHide();filterMentor();" type="radio" name="main_filter" value="mentor">Mentor
     </fieldset></p>
 
+    <div id="subfilter" style="display: none">
     <p><fieldset class="subfilter">
         <legend>Subfilter</legend>
 
-        <input type="checkbox" name="status" value="0">New
-        <input type="checkbox" name="status" value="1">In progress
-        <input type="checkbox" name="status" value="2">Accepted
-        <input type="checkbox" name="status" value="3">Rejected
+        <div id="status" style="display: none">
+            <input type="radio" name="status" value="0">New
+            <input type="radio" name="status" value="1">In progress
+            <input type="radio" name="status" value="2">Accepted
+            <input type="radio" name="status" value="3">Rejected
+        </div>
 
-        <p>From:<input type="date" name="from_date">
-        To:<input type="date" name="to_date"></p>
+        <div id="date" style="display: none">
+            <p>From:<input type="date" name="from_date">
+            To:<input type="date" name="to_date"></p>
+        </div>
 
-        <p>Location:<input type="text" name="location"></p>
+        <div id="location" style="display: none">
+            <p>Location:<input type="text" name="location"></p>
+        </div>
 
-        <p>Name:<input type="text" name="name"></p>
+        <div id="name" style="display: none">
+            <p>Name:<input type="text" name="name"></p>
+        </div>
 
-        <p>Email:<input type="text" name="email"></p>
+        <div id="email" style="display: none">
+            <p>Email:<input type="text" name="email"></p>
+        </div>
 
-        {% for s in schools %}
-        <input type="checkbox" name="school" value="{{s.id}}">{{s.location}}
-        {% endfor %}
+        <div id="school" style="display: none">
+            {% for s in schools %}
+            <input type="radio" name="school" value="{{s.id}}">{{s.location}}
+            {% endfor %}
+        </div>
 
-        {% for m in mentors %}
-        <input type="checkbox" name="mentor" value="{{m.id}}">{{m.full_name}}
-        {% endfor %}
+        <div id="mentor" style="display: none">
+            {% for m in mentors %}
+            <input type="radio" name="mentor" value="{{m.id}}">{{m.full_name}}
+            {% endfor %}
+        </div>
+    </div>
 
     </fieldset></p>
 <p><input type="submit" value=Search></p>
@@ -72,5 +88,6 @@
     {% endfor %}
 </table>
 </div>
+<script type="text/javascript" src="{{url_for('static', filename='subfilter.js')}}"></script>
 
 {% endblock %}
