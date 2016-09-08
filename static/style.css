@@ -1,12 +1,18 @@
-body{
+html{
+    height: 100%;
+    margin:0px;
     background-image:url("codecool_bg.png");
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family:"Arial", Georgia, Serif;
     font-size: 100%;
     color: #384439;
 }
 
+::-webkit-scrollbar {
+display: none;
+}
 
 h2{
     font-family:"Arial", Georgia, Serif;
@@ -89,7 +95,7 @@ th {
     padding: 10px;
 }
 
-tr:nth-child(even) {
+tr {
     background-color: #f2f2f2;
     padding: 10px;
 }

@@ -99,4 +99,4 @@ def close_connection(exception):
 with app.app_context():
     connect_to_db()
     build_tables()
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
