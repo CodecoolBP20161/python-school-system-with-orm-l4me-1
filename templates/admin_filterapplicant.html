@@ -5,7 +5,7 @@
 <title>l4me - ADMIN view</title>
 
 <form action="" method="GET">
-    <fieldset>
+    <p><fieldset class="mainfilter">
         <legend>Main filter</legend>
             <label for="status"><input type="radio" name="main_filter" value="status">Status
             <label for="date"><input type="radio" name="main_filter" value="date">Application date
@@ -14,9 +14,9 @@
             <label for="email"><input type="radio" name="main_filter" value="email">Email
             <label for="school"><input type="radio" name="main_filter" value="school">School
             <label for="mentor"><input type="radio" name="main_filter" value="mentor">Mentor
-    </fieldset>
+    </fieldset></p>
 
-    <fieldset>
+    <p><fieldset class="subfilter">
         <legend>Subfilter</legend>
 
         <input type="checkbox" name="status" value="new">New
@@ -41,10 +41,11 @@
         <input type="checkbox" name="mentor" value="{{i.id}}">{{i.full_name}}
         {% endfor %}
 
-    </fieldset>
+    </fieldset></p>
 <p><input type="submit" value=Search></p>
 </form>
 
+<div style="overflow-x:auto;">
 <table>
     <tr>
         <th>App code</th>
@@ -67,6 +68,7 @@
             <td>{{r.email}}</td>
         </tr>
     {% endfor %}
-    </table>
+</table>
+</div>
 
 {% endblock %}
