@@ -56,6 +56,9 @@ a.login:hover, a.login:active {
     box-shadow: 2px 2px #999999
 }
 
+a.logout {
+}
+
 input[type=submit] {
     border: none;
     padding: 8px 15px 8px 15px;
@@ -72,4 +75,31 @@ input[type=submit] {
 
 input[type=submit]:hover {
     box-shadow: 2px 2px #999999
+}
+
+table{
+    padding: 15px;
+    text-align: left;
+    border-collapse: collapse
+}
+
+th {
+    background-color: #32c9c4;
+    color: white;
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+fieldset.mainfilter {
+    display:inline-block;
+    background: #F5F5F5;
+}
+
+fieldset.subfilter {
+    display:inline-block;
+    background: #F5F5F5;
 }

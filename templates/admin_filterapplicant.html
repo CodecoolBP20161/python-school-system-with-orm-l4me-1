@@ -1,0 +1,75 @@
+{% extends "index.html" %}
+{% block body %}
+
+<meta charset="utf-8">
+<title>l4me - ADMIN view</title>
+
+<form action="" method="GET">
+<a href="{{url_for('logout')}}" class="logout">Logout</a>
+    <p><fieldset class="mainfilter">
+        <legend>Main filter</legend>
+            <label for="status"><input type="radio" name="main_filter" value="status">Status
+            <label for="date"><input type="radio" name="main_filter" value="date">Application date
+            <label for="location"><input type="radio" name="main_filter" value="location">Location
+            <label for="name"><input type="radio" name="main_filter" value="name">Name
+            <label for="email"><input type="radio" name="main_filter" value="email">Email
+            <label for="school"><input type="radio" name="main_filter" value="school">School
+            <label for="mentor"><input type="radio" name="main_filter" value="mentor">Mentor
+    </fieldset></p>
+
+    <p><fieldset class="subfilter">
+        <legend>Subfilter</legend>
+
+        <input type="checkbox" name="status" value="new">New
+        <input type="checkbox" name="status" value="in_progress">In progress
+        <input type="checkbox" name="status" value="accepted">Accepted
+        <input type="checkbox" name="status" value="rejected">Rejected
+
+        <p>From:<input type="date" name="from_date">
+        To:<input type="date" name="to_date"></p>
+
+        <p>Location:<input type="text" name="location"></p>
+
+        <p>Name:<input type="text" name="name"></p>
+
+        <p>Email:<input type="text" name="email"></p>
+
+        {% for s in schools %}
+        <input type="checkbox" name="school" value="{{i.id}}">{{i.location}}
+        {% endfor %}
+
+        {% for m in mentors %}
+        <input type="checkbox" name="mentor" value="{{i.id}}">{{i.full_name}}
+        {% endfor %}
+
+    </fieldset></p>
+<p><input type="submit" value=Search></p>
+</form>
+
+<div style="overflow-x:auto;">
+<table>
+    <tr>
+        <th>App code</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Location</th>
+        <th>Application date</th>
+        <th>School</th>
+        <th>Status</th>
+        <th>Email</th>
+    </tr>
+    {% for r in records %}
+        <tr>
+            <td>{{r.application_code}}</td>
+            <td>{{r.first_name}}</td>
+            <td>{{r.last_name}}</td>
+            <td>{{r.location}}</td>
+            <td>{{r.time}}</td>
+            <td>{{r.school}}</td>
+            <td>{{r.email}}</td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}
