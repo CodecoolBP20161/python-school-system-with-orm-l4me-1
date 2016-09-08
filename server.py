@@ -32,7 +32,7 @@ def applicant_apply():
     if not Applicant.select().where(Applicant.real_email == request.form["real_email"]):
         Applicant.create(**request.form.to_dict())
         flash('Succesfully applied to CODECOOL. You will receive an email with further information.')
-        return (url_for('homepage'))
+        return redirect(url_for('homepage'))
     else:
         flash('Email address already exists in our records')
         return application_form(request.form.to_dict())

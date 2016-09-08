@@ -82,7 +82,7 @@ class Applicant(Person):
             try:
                 from_time = datetime.datetime.strptime(value, '%Y-%m-%d').date()
                 to_time = datetime.datetime.strptime(value_2, '%Y-%m-%d').date()
-                query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time)).order_by(cls.time)
+                query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time))
             except:
                 print("Use date formatum (YYYY-MM-DD)!")
                 return
