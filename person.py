@@ -7,6 +7,9 @@ class Person(BaseModel):
     first_name = CharField()
     last_name = CharField()
 
+    class Meta:
+        order_by = ['last_name', 'first_name']
+
     @property
     def full_name(self):
         return self.first_name+" "+self.last_name

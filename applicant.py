@@ -9,14 +9,17 @@ from email_gen import EmailGen
 
 class Applicant(Person):
     location = CharField()
-    time = DateField()
+    time = DateField(default=datetime.date.today())
     school = ForeignKeyField(School, related_name="applicants", null=True)
-    status = IntegerField()
+    status = IntegerField(default=0)
     application_code = CharField(null=True, unique=True)
+    real_email = CharField(unique=True)
+
+    STATUSDICT = {0: "New", 1: "In progress", 2: "Rejected", 3: "Accepted"}
 
     @property
     def get_status(self):
-        return {0: "new", 1: "in progress", 2: "rejected", 3: "accepted"}[self.status]
+        return Applicant.STATUSDICT[self.status]
 
     @property
     def get_school(self):
@@ -53,15 +56,15 @@ class Applicant(Person):
 
     @classmethod
     def applicants_without_school(cls):
-        query = cls.select().where(cls.school >> None)
+        query = cls.select().where((cls.school >> None) & (cls.status == 1))
         if query:
             print("Some applicants have no school connected")
             if input("Want to connect them now? (y/n): ") == "y":
                 for applicant in query:
-                    school = City.get(City.name == applicant.location).school
-                    applicant.school = school
+                    school = City.select().where(City.name == applicant.location)
+                    applicant.school = school[0].school if school else School.get(School.location == "Budapest")
                     applicant.save()
-                    print("{} registered in {} school.".format(applicant.full_name, school.location))
+                    print("{} registered in {} school.".format(applicant.full_name, applicant.school.location))
                     applicant.generate_appcode_email()
 
     @classmethod
@@ -75,16 +78,17 @@ class Applicant(Person):
         elif filter_by == "name":
             query = cls.select().where(cls.first_name.startswith(value) | (cls.last_name.startswith(value)))
         elif filter_by == "email":
-            query = cls.select().where(cls.email.contains(value))
+            query = cls.select().where(cls.real_email.contains(value))
         elif filter_by == "time":
             try:
                 from_time = datetime.datetime.strptime(value, '%Y-%m-%d').date()
                 to_time = datetime.datetime.strptime(value_2, '%Y-%m-%d').date()
-                query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time)).order_by(cls.time)
+                query = cls.select().where((cls.time >= from_time) & (cls.time <= to_time))
             except:
                 print("Use date formatum (YYYY-MM-DD)!")
                 return
         cls.display_applicant_list(query)
+        return query
 
     @classmethod
     def details_of_applicant(cls, application_code):

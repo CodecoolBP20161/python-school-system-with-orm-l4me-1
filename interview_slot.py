@@ -3,11 +3,15 @@ from models import *
 from applicant import *
 from email_gen import EmailGen
 
+
 class InterviewSlot(BaseModel):
     start = DateTimeField()
     end = DateTimeField()
     mentor = ForeignKeyField(Mentor)
     applicant = ForeignKeyField(Applicant, null=True)
+
+    class Meta:
+        order_by = ['start']
 
     @classmethod
     def applicants_without_interview_slot(cls):
@@ -57,8 +61,9 @@ class InterviewSlot(BaseModel):
 
     @classmethod
     def filter_applicant_by_mentor(cls, mentor):
-        Applicant.display_applicant_list(
-         [interview.applicant for interview in cls.select() if interview.mentor == mentor and interview.applicant])
+        q = [interview.applicant for interview in cls.select() if interview.mentor == mentor and interview.applicant]
+        Applicant.display_applicant_list(q)
+        return q
 
     @classmethod
     def details_of_interview(cls, application_code):

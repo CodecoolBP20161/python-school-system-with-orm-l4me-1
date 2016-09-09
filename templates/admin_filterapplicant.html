@@ -1,0 +1,95 @@
+{% extends "index.html" %}
+{% block body %}
+
+<meta charset="utf-8">
+<title>l4me - ADMIN view</title>
+
+<form action="" method="post">
+<a href="{{url_for('logout')}}" class="logout"><img style="vertical-align:middle; height: 20px; width: 20px;" src="{{url_for('static', filename='logout.png')}}">Logout</a>
+    <p><fieldset class="mainfilter">
+        <legend>Main filter</legend>
+            <label for="status"><input onclick="filterHide();filterStatus();" type="radio" name="main_filter" value="status" required>Status
+            <label for="date"><input onclick="filterHide();filterDate();" type="radio" name="main_filter" value="time">Application date
+            <label for="location"><input onclick="filterHide();filterLocation();" type="radio" name="main_filter" value="location">Location
+            <label for="name"><input onclick="filterHide();filterName();" type="radio" name="main_filter" value="name">Name
+            <label for="email"><input onclick="filterHide();filterEmail();" type="radio" name="main_filter" value="email">Email
+            <label for="school"><input onclick="filterHide();filterSchool();" type="radio" name="main_filter" value="school">School
+            <label for="mentor"><input onclick="filterHide();filterMentor();" type="radio" name="main_filter" value="mentor">Mentor
+    </fieldset></p>
+
+    <div id="subfilter" style="display: none">
+    <p><fieldset class="subfilter">
+        <legend>Subfilter</legend>
+
+        <div id="status" style="display: none">
+            <input type="radio" name="status" value="0">New
+            <input type="radio" name="status" value="1">In progress
+            <input type="radio" name="status" value="2">Rejected
+            <input type="radio" name="status" value="3">Accepted
+        </div>
+
+        <div id="date" style="display: none">
+            <p>From:<input type="date" name="from_date">
+            To:<input type="date" name="to_date"></p>
+        </div>
+
+        <div id="location" style="display: none">
+            <p>Location:<input type="text" name="location"></p>
+        </div>
+
+        <div id="name" style="display: none">
+            <p>Name:<input type="text" name="name"></p>
+        </div>
+
+        <div id="email" style="display: none">
+            <p>Email:<input type="text" name="email"></p>
+        </div>
+
+        <div id="school" style="display: none">
+            {% for s in schools %}
+            <input type="radio" name="school" value="{{s.id}}">{{s.location}}
+            {% endfor %}
+        </div>
+
+        <div id="mentor" style="display: none">
+            <select name="mentor">
+            {% for m in mentors %}
+            <option value="{{m.id}}">{{m.full_name}}</option>
+            {% endfor %}
+        </select>
+        </div>
+    </div>
+
+    </fieldset></p>
+<p><input type="submit" value=Search> Filter: {{last_search}}</p>
+</form>
+
+<div style="overflow-x:auto;">
+<table>
+    <tr>
+        <th>App code</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Location</th>
+        <th>Application date</th>
+        <th>School</th>
+        <th>Status</th>
+        <th>Email</th>
+    </tr>
+    {% for r in records %}
+        <tr>
+            <td>{{r.application_code}}</td>
+            <td>{{r.first_name}}</td>
+            <td>{{r.last_name}}</td>
+            <td>{{r.location}}</td>
+            <td>{{r.time}}</td>
+            <td>{{r.get_school}}</td>
+            <td>{{r.get_status}}</td>
+            <td>{{r.real_email}}</td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
+<script type="text/javascript" src="{{url_for('static', filename='subfilter.js')}}"></script>
+
+{% endblock %}

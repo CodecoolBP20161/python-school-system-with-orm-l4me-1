@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% block body %}
+
+<meta charset="UTF-8">
+<title>Admin login</title>
+
+<form method="post" action="" >
+    <h2>Please fill in the form to apply</h2>
+    <label for="user_name">User name:<p><input id="user_name" name="user_name"
+                                                 type="text" size="45" required ></p></label>
+    <label for="password">User name:<p><input id="password" name="password"
+                                                 type="password" size="45" required ></p></label>
+
+    <p><input type="submit" value="Login"></p>
+</form>
+{% endblock %}
