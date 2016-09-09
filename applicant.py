@@ -78,7 +78,7 @@ class Applicant(Person):
         elif filter_by == "name":
             query = cls.select().where(cls.first_name.startswith(value) | (cls.last_name.startswith(value)))
         elif filter_by == "email":
-            query = cls.select().where(cls.email.contains(value))
+            query = cls.select().where(cls.real_email.contains(value))
         elif filter_by == "time":
             try:
                 from_time = datetime.datetime.strptime(value, '%Y-%m-%d').date()
