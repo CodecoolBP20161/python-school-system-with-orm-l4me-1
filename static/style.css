@@ -64,9 +64,11 @@ a.normal:hover, a.login:active {
 
 a.logout {
     background-image: url("logout.png");
+    background-repeat: no-repeat;
     text-decoration: none;
     color: #3283c9;
     padding-left: 24px;
+    margin-left: 14px;
 }
 
 input[type=submit] {

@@ -1,6 +1,6 @@
 
 <p>
     {% for menu in menu_list %}
-        <a href="{{url_for(menu.href)}}" class="menu.class">menu.text</a>
+        <a href="{{url_for(menu.href)}}" class="{{menu.css_class}}">{{menu.text}}</a>
     {% endfor %}
 </p>
