@@ -112,9 +112,9 @@ def logout():
     return redirect(url_for('homepage'))
 
 
-@app.route('/logout')
-@login_required
-def logout():
+@app.route('/applogout')
+@applicant_login_required
+def applicant_logout():
     session.pop('applicant_logged_in', None)
     flash('You were logged out.')
     return redirect(url_for('homepage'))
