@@ -26,7 +26,7 @@ def login_required(f):
 def applicant_login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'logged_in' in session:
+        if 'applicant_logged_in' in session:
             return f(*args, **kwargs)
         else:
             flash('You need to login first.')
@@ -71,7 +71,7 @@ def applicant_login():
             flash('Invalid account. Try again')
             return render_template('applicant_login_form.html')
         else:
-            session['logged_in'] = True
+            session['applicant_logged_in'] = True
             flash('You were logged in.')
             return redirect(url_for('applicant_page'))
     else:
@@ -108,6 +108,14 @@ def admin_login():
 @login_required
 def logout():
     session.pop('logged_in', None)
+    flash('You were logged out.')
+    return redirect(url_for('homepage'))
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('applicant_logged_in', None)
     flash('You were logged out.')
     return redirect(url_for('homepage'))
 
