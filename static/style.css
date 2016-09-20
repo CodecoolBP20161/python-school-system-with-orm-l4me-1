@@ -29,7 +29,7 @@ a.home {
     text-shadow: 2px 2px 4px #000000;
 }
 
-a.apply:link, a.apply:visited {
+a.highlight:link, a.highlight:visited {
     font-family:"Arial", Georgia, Serif;
     background-color: #32c9c4;
     color: white;
@@ -40,12 +40,12 @@ a.apply:link, a.apply:visited {
     border-radius: 5px 10px;
 }
 
-a.apply:hover, a.apply:active {
+a.highlight:hover, a.highlight:active {
     background-color: #3283c9;
     box-shadow: 2px 2px #999999
 }
 
-a.login {
+a.normal {
     font-family:"Arial", Georgia, Serif;
     color: #3283c9;
     border: 1px solid white;
@@ -57,14 +57,18 @@ a.login {
     border-radius: 5px 10px;
 }
 
-a.login:hover, a.login:active {
+a.normal:hover, a.login:active {
     background-color: #FFFFFF;
     box-shadow: 2px 2px #999999
 }
 
 a.logout {
+    background-image: url("logout.png");
+    background-repeat: no-repeat;
     text-decoration: none;
     color: #3283c9;
+    padding-left: 24px;
+    margin-left: 14px;
 }
 
 input[type=submit] {
