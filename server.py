@@ -37,7 +37,7 @@ def applicant_login_required(f):
 @app.route('/')
 def homepage():
     menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                Menulink(text="Applicant login", href="homepage", css_class="normal"),
+                Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
                 Menulink(text="Mentor login", href="homepage", css_class="normal"),
                 Menulink(text="Admin login", href="admin_login", css_class="normal")]
     return render_template('home.html', menu_list=menulist)
@@ -57,7 +57,7 @@ def applicant_apply():
 @app.route('/apply', methods=['GET'])
 def application_form(applicant=""):
     menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                Menulink(text="Applicant login", href="homepage", css_class="normal"),
+                Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
                 Menulink(text="Mentor login", href="homepage", css_class="normal"),
                 Menulink(text="Admin login", href="admin_login", css_class="normal")]
     return render_template('application_form.html', applicant=applicant, menu_list=menulist)
@@ -75,7 +75,11 @@ def applicant_login():
             flash('You were logged in.')
             return redirect(url_for('applicant_page'))
     else:
-        return redirect(url_for('applicant_page')) if session.get('logged_in') else render_template('applicant_login_form.html')
+        menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
+                    Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
+                    Menulink(text="Mentor login", href="homepage", css_class="normal"),
+                    Menulink(text="Admin login", href="admin_login", css_class="normal")]
+        return redirect(url_for('applicant_page')) if session.get('logged_in') else render_template('applicant_login_form.html', menu_list=menulist)
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
@@ -91,7 +95,7 @@ def admin_login():
             return redirect(url_for('admin_page'))
     else:
         menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                    Menulink(text="Applicant login", href="homepage", css_class="normal"),
+                    Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
                     Menulink(text="Mentor login", href="homepage", css_class="normal"),
                     Menulink(text="Admin login", href="admin_login", css_class="normal")]
         if session.get('logged_in'):
