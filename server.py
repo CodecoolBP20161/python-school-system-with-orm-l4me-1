@@ -71,7 +71,7 @@ def applicant_login():
             flash('Invalid account. Try again')
             return render_template('applicant_login_form.html')
         else:
-            session['applicant_logged_in'] = True
+            session['applicant_logged_in'] = query[0].application_code
             flash('You were logged in.')
             return redirect(url_for('applicant_profile'))
     else:
