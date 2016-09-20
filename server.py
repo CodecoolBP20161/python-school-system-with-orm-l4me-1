@@ -23,6 +23,17 @@ def login_required(f):
     return wrap
 
 
+def applicant_login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('You need to login first.')
+            return redirect(url_for('applicant_login_form.html'))
+    return wrap
+
+
 @app.route('/')
 def homepage():
     menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
@@ -50,6 +61,21 @@ def application_form(applicant=""):
                 Menulink(text="Mentor login", href="homepage", css_class="normal"),
                 Menulink(text="Admin login", href="admin_login", css_class="normal")]
     return render_template('application_form.html', applicant=applicant, menu_list=menulist)
+
+
+@app.route('/applicantlogin', methods=['POST', 'GET'])
+def applicant_login():
+    if request.method == 'POST':
+        query = Applicant.select().where(Applicant.application_code == request.form['app_code'], Applicant.real_email == request.form['application_email'])
+        if not query:
+            flash('Invalid account. Try again')
+            return render_template('applicant_login_form.html')
+        else:
+            session['logged_in'] = True
+            flash('You were logged in.')
+            return redirect(url_for('applicant_page'))
+    else:
+        return redirect(url_for('applicant_page')) if session.get('logged_in') else render_template('applicant_login_form.html')
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
