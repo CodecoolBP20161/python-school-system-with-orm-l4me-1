@@ -79,7 +79,7 @@ def applicant_login():
                     Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
                     Menulink(text="Mentor login", href="homepage", css_class="normal"),
                     Menulink(text="Admin login", href="admin_login", css_class="normal")]
-        return redirect(url_for('applicant_profile')) if session.get('logged_in') else render_template('applicant_login_form.html', menu_list=menulist)
+        return redirect(url_for('applicant_profile')) if session.get('applicant_logged_in') else render_template('applicant_login_form.html', menu_list=menulist)
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
