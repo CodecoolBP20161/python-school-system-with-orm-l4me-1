@@ -73,13 +73,13 @@ def applicant_login():
         else:
             session['applicant_logged_in'] = True
             flash('You were logged in.')
-            return redirect(url_for('applicant_page'))
+            return redirect(url_for('applicant_profile'))
     else:
         menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
                     Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
                     Menulink(text="Mentor login", href="homepage", css_class="normal"),
                     Menulink(text="Admin login", href="admin_login", css_class="normal")]
-        return redirect(url_for('applicant_page')) if session.get('logged_in') else render_template('applicant_login_form.html', menu_list=menulist)
+        return redirect(url_for('applicant_profile')) if session.get('logged_in') else render_template('applicant_login_form.html', menu_list=menulist)
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
@@ -160,6 +160,14 @@ def admin_page():
                 Menulink(text="Logout", href="logout", css_class="logout")]
     return render_template('admin_filterapplicant.html', records=Applicant.select(), schools=School.select(),
                            mentors=Mentor.select(), last_search='ALL RECORDS', menu_list=menulist)
+
+
+@app.route('/applicantprofile')
+@applicant_login_required
+def applicant_profile():
+    menulist = [Menulink(text="My profile", href="applicant_profile", css_class="normal"),
+                Menulink(text="Logout", href="applicant_logout", css_class="logout")]
+    return render_template('applicant_profile.html', menu_list=menulist)
 
 
 @app.teardown_appcontext
