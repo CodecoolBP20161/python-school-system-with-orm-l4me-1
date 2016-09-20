@@ -94,6 +94,7 @@ class Applicant(Person):
     def details_of_applicant(cls, application_code):
         applicant = cls.get(cls.application_code == application_code)
         print("\nStatus: {}\nAssigned school: {}".format(applicant.get_status, applicant.get_school))
+        return applicant
 
     @staticmethod
     def display_applicant_list(applicants):
