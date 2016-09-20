@@ -121,3 +121,20 @@ fieldset.subfilter {
     display:inline-block;
     background: #F5F5F5;
 }
+
+table.app_profile {
+    border: 1px solid #ddd;
+    border-collapse:separate;
+    border-radius:6px;
+    -moz-border-radius:6px;
+    /*background-color: #FFFFFF;
+    opacity: 0.8;*/
+}
+
+td.app_profile {
+    background-color: #FFFFFF;
+}
+
+tr.app_profile {
+    border-bottom: 1px solid #ddd;
+}

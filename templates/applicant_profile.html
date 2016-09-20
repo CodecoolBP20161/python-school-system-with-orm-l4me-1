@@ -7,8 +7,27 @@
 
 {% include "menu.html" %}
 
+<div>
+ <h2>Your details</h2>
 
-<p>Your school is: {{applicant.get_school}}</p>
-<p>Your status is: {{applicant.get_status}}</p>
+ <table class="app_profile">
+  <tr class="app_profile">
+    <th>Application code:</th>
+    <td class="app_profile">{{applicant.application_code}}</td>
+  </tr>
+  <tr class="app_profile">
+    <th>School:</th>
+    <td class="app_profile">{{applicant.get_school}}</td>
+  </tr>
+  <tr class="app_profile">
+    <th>Status:</th>
+    <td class="app_profile">{{applicant.get_status}}</td>
+  </tr>
+  <tr class="app_profile">
+    <th>Application date:</th>
+    <td class="app_profile">{{applicant.time}}</td>
+  </tr>
+</table>
+</div>
 
 {% endblock %}
