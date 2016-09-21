@@ -146,7 +146,12 @@ def admin_page():
 @applicant_login_required
 def applicant_profile():
     applicant = Applicant.details_of_applicant(session['applicant_logged_in'])
-    return render_template('applicant_profile.html', menu_list=Menulink.applicant(), applicant=applicant)
+    data = [['Application code:', applicant.application_code],
+            ['Status:', applicant.get_status],
+            ['School:', applicant.get_school],
+            ['Application date:', applicant.time]]
+    detail_type = 'profile'
+    return render_template('applicant_profile.html', menu_list=Menulink.applicant(), detail_type=detail_type, data=data)
 
 
 @app.teardown_appcontext

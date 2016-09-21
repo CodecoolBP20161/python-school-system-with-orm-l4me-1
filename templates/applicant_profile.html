@@ -8,25 +8,17 @@
 {% include "menu.html" %}
 
 <div>
- <h2>Your details</h2>
+ <h2>Your {{detail_type}} details</h2>
+
+{{no_interview}}
 
  <table class="app_profile">
+{% for d in data %}
   <tr class="app_profile">
-    <th>Application code:</th>
-    <td class="app_profile">{{applicant.application_code}}</td>
+    <th>{{d[0]}}</th>
+    <td class="app_profile">{{d[1]}}</td>
   </tr>
-  <tr class="app_profile">
-    <th>School:</th>
-    <td class="app_profile">{{applicant.get_school}}</td>
-  </tr>
-  <tr class="app_profile">
-    <th>Status:</th>
-    <td class="app_profile">{{applicant.get_status}}</td>
-  </tr>
-  <tr class="app_profile">
-    <th>Application date:</th>
-    <td class="app_profile">{{applicant.time}}</td>
-  </tr>
+{% endfor %}
 </table>
 </div>
 
