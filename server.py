@@ -165,9 +165,10 @@ def admin_page():
 @app.route('/applicantprofile')
 @applicant_login_required
 def applicant_profile():
+    applicant = Applicant.details_of_applicant(session['applicant_logged_in'])
     menulist = [Menulink(text="My profile", href="applicant_profile", css_class="normal"),
                 Menulink(text="Logout", href="applicant_logout", css_class="logout")]
-    return render_template('applicant_profile.html', menu_list=menulist)
+    return render_template('applicant_profile.html', menu_list=menulist, applicant=applicant)
 
 
 @app.teardown_appcontext
