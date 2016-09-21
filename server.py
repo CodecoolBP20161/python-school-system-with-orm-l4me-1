@@ -36,11 +36,7 @@ def applicant_login_required(f):
 
 @app.route('/')
 def homepage():
-    menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
-                Menulink(text="Mentor login", href="homepage", css_class="normal"),
-                Menulink(text="Admin login", href="admin_login", css_class="normal")]
-    return render_template('home.html', menu_list=menulist)
+    return render_template('home.html', menu_list=Menulink.home())
 
 
 @app.route('/apply', methods=['POST'])
@@ -56,17 +52,14 @@ def applicant_apply():
 
 @app.route('/apply', methods=['GET'])
 def application_form(applicant=""):
-    menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
-                Menulink(text="Mentor login", href="homepage", css_class="normal"),
-                Menulink(text="Admin login", href="admin_login", css_class="normal")]
-    return render_template('application_form.html', applicant=applicant, menu_list=menulist)
+    return render_template('application_form.html', applicant=applicant, menu_list=Menulink.home())
 
 
 @app.route('/applicantlogin', methods=['POST', 'GET'])
 def applicant_login():
     if request.method == 'POST':
-        query = Applicant.select().where(Applicant.application_code == request.form['app_code'], Applicant.real_email == request.form['application_email'])
+        query = Applicant.select().where(Applicant.application_code == request.form['app_code'],
+                                         Applicant.real_email == request.form['application_email'])
         if not query:
             flash('Invalid account. Try again')
             return render_template('applicant_login_form.html')
@@ -75,11 +68,10 @@ def applicant_login():
             flash('You were logged in.')
             return redirect(url_for('applicant_profile'))
     else:
-        menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                    Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
-                    Menulink(text="Mentor login", href="homepage", css_class="normal"),
-                    Menulink(text="Admin login", href="admin_login", css_class="normal")]
-        return redirect(url_for('applicant_profile')) if session.get('applicant_logged_in') else render_template('applicant_login_form.html', menu_list=menulist)
+        if session.get('applicant_logged_in'):
+            return redirect(url_for('applicant_profile'), menu_list=Menulink.home())
+        else:
+            return render_template('applicant_login_form.html', menu_list=Menulink.home())
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
@@ -94,14 +86,10 @@ def admin_login():
             flash('You were logged in.')
             return redirect(url_for('admin_page'))
     else:
-        menulist = [Menulink(text="Apply to CODECOOL", href="applicant_apply", css_class="highlight"),
-                    Menulink(text="Applicant login", href="applicant_login", css_class="normal"),
-                    Menulink(text="Mentor login", href="homepage", css_class="normal"),
-                    Menulink(text="Admin login", href="admin_login", css_class="normal")]
         if session.get('logged_in'):
             return redirect(url_for('admin_page'))
         else:
-            return render_template('login.html', menu_list=menulist)
+            return render_template('login.html', menu_list=Menulink.home())
 
 
 @app.route('/logout')
@@ -123,8 +111,6 @@ def applicant_logout():
 @app.route('/adminpage', methods=['POST'])
 @login_required
 def admin_filter():
-    menulist = [Menulink(text="Filter Applicants", href="admin_page", css_class="normal"),
-                Menulink(text="Logout", href="logout", css_class="logout")]
     query = Applicant.select()
     subfilter = ""
     applied_filter = ""
@@ -150,25 +136,43 @@ def admin_filter():
         flash('Please fill the subfilter')
     return render_template('admin_filterapplicant.html', records=query,
                            schools=School.select(), mentors=Mentor.select(),
-                           last_search=applied_filter or 'ALL RECORDS', menu_list=menulist)
+                           last_search=applied_filter or 'ALL RECORDS', menu_list=Menulink.admin())
 
 
 @app.route('/adminpage', methods=['GET'])
 @login_required
 def admin_page():
-    menulist = [Menulink(text="Filter Applicants", href="admin_page", css_class="normal"),
-                Menulink(text="Logout", href="logout", css_class="logout")]
     return render_template('admin_filterapplicant.html', records=Applicant.select(), schools=School.select(),
-                           mentors=Mentor.select(), last_search='ALL RECORDS', menu_list=menulist)
+                           mentors=Mentor.select(), last_search='ALL RECORDS', menu_list=Menulink.admin())
 
 
 @app.route('/applicantprofile')
 @applicant_login_required
 def applicant_profile():
     applicant = Applicant.details_of_applicant(session['applicant_logged_in'])
-    menulist = [Menulink(text="My profile", href="applicant_profile", css_class="normal"),
-                Menulink(text="Logout", href="applicant_logout", css_class="logout")]
-    return render_template('applicant_profile.html', menu_list=menulist, applicant=applicant)
+    data = [['Application code:', applicant.application_code],
+            ['Status:', applicant.get_status],
+            ['School:', applicant.get_school],
+            ['Application date:', applicant.time]]
+    detail_type = 'profile'
+    return render_template('applicant_profile.html', menu_list=Menulink.applicant(), detail_type=detail_type, data=data)
+
+
+@app.route('/applicantinterview')
+@applicant_login_required
+def applicant_interview():
+    details = InterviewSlot.details_of_interview(session['applicant_logged_in'])
+    data = ""
+    no_interview = ""
+    if not isinstance(details, str):
+        data = [['Date: ', details[0] + "-" + details[1]],
+                ['School: ', details[2]],
+                ['Mentor: ', details[3]]]
+        print("WTF")
+    else:
+        no_interview = details
+    return render_template('applicant_profile.html', menu_list=Menulink.applicant(),
+                           data=data, no_interview=no_interview)
 
 
 @app.teardown_appcontext
