@@ -5,18 +5,13 @@
 </head>
 
 {% include "menu.html" %}
-<form method="post", action="" >
-    <div class="container">
-        <h1>Applicant Login</h1>
+<form method="post" action="" >
+    <h2>Applicant Login</h2>
 
-        <div class="form-group">
-            <label for="app_code">Application code</label>
-            <p><input id="story_title" class="form-control" name="app_code" type="text" size="45" required></p>
-        </div>
-        <div class="form-group">
-            <label for="application_email">Application email</label>
-            <p><input id="application_email" class="form-control" name="application_email" type="text" size="45" required></p>
-        </div>
-        <button type="submit" class="btn btn-default">LOGIN</button>
+    <label for="app_code">Application code</label>
+    <p><input id="story_title" name="app_code" size="45" required></p>
+    <label for="application_email">Application email</label>
+    <p><input id="application_email" name="application_email" type="text" size="45" required></p>
+    <input type="submit" value="Login">
 </form>
 {% endblock %}
