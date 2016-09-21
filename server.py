@@ -58,7 +58,8 @@ def application_form(applicant=""):
 @app.route('/applicantlogin', methods=['POST', 'GET'])
 def applicant_login():
     if request.method == 'POST':
-        query = Applicant.select().where(Applicant.application_code == request.form['app_code'], Applicant.real_email == request.form['application_email'])
+        query = Applicant.select().where(Applicant.application_code == request.form['app_code'],
+                                         Applicant.real_email == request.form['application_email'])
         if not query:
             flash('Invalid account. Try again')
             return render_template('applicant_login_form.html')
@@ -67,7 +68,10 @@ def applicant_login():
             flash('You were logged in.')
             return redirect(url_for('applicant_profile'))
     else:
-        return redirect(url_for('applicant_profile')) if session.get('applicant_logged_in') else render_template('applicant_login_form.html', menu_list=Menulink.home())
+        if session.get('applicant_logged_in'):
+            return redirect(url_for('applicant_profile'), menu_list=Menulink.home())
+        else:
+            return render_template('applicant_login_form.html', menu_list=Menulink.home())
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
@@ -152,6 +156,23 @@ def applicant_profile():
             ['Application date:', applicant.time]]
     detail_type = 'profile'
     return render_template('applicant_profile.html', menu_list=Menulink.applicant(), detail_type=detail_type, data=data)
+
+
+@app.route('/applicantinterview')
+@applicant_login_required
+def applicant_interview():
+    details = InterviewSlot.details_of_interview(session['applicant_logged_in'])
+    data = ""
+    no_interview = ""
+    if not isinstance(details, str):
+        data = [['Date: ', details[0] + "-" + details[1]],
+                ['School: ', details[2]],
+                ['Mentor: ', details[3]]]
+        print("WTF")
+    else:
+        no_interview = details
+    return render_template('applicant_profile.html', menu_list=Menulink.applicant(),
+                           data=data, no_interview=no_interview)
 
 
 @app.teardown_appcontext
