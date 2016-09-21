@@ -69,7 +69,7 @@ def applicant_login():
             return redirect(url_for('applicant_profile'))
     else:
         if session.get('applicant_logged_in'):
-            return redirect(url_for('applicant_profile'), menu_list=Menulink.home())
+            return redirect(url_for('applicant_profile'))
         else:
             return render_template('applicant_login_form.html', menu_list=Menulink.home())
 
@@ -164,6 +164,7 @@ def applicant_interview():
     details = InterviewSlot.details_of_interview(session['applicant_logged_in'])
     data = ""
     no_interview = ""
+    detail_type = "interview"
     if not isinstance(details, str):
         data = [['Date: ', details[0] + "-" + details[1]],
                 ['School: ', details[2]],
@@ -172,7 +173,7 @@ def applicant_interview():
     else:
         no_interview = details
     return render_template('applicant_profile.html', menu_list=Menulink.applicant(),
-                           data=data, no_interview=no_interview)
+                           data=data, no_interview=no_interview, detail_type=detail_type)
 
 
 @app.teardown_appcontext
