@@ -1,16 +1,17 @@
 {% extends "index.html" %}
 {% block body %}
+<head>
+    <title>Admin login</title>
+</head>
 
-<meta charset="UTF-8">
-<title>Admin login</title>
-
+{% include "menu.html" %}
 <form method="post" action="" >
-    <h2>Please fill in the form to apply</h2>
-    <label for="user_name">User name:<p><input id="user_name" name="user_name"
-                                                 type="text" size="45" required ></p></label>
-    <label for="password">User name:<p><input id="password" name="password"
-                                                 type="password" size="45" required ></p></label>
+    <h2>Admin Login</h2>
 
-    <p><input type="submit" value="Login"></p>
+    <label for="user_name">User name:</label>
+    <p><input id="user_name" name="user_name" type="text" size="45" required></p>
+    <label for="password">Password:</label>
+    <p><input id="password" name="password" type="password" size="45" required></p>
+    <input type="submit" value="Login"></p>
 </form>
 {% endblock %}

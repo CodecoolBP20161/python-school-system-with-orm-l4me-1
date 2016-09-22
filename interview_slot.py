@@ -70,9 +70,11 @@ class InterviewSlot(BaseModel):
         try:
             applicant = Applicant.get(Applicant.application_code == application_code)
             interview = cls.get(cls.applicant == applicant)
-            cls.get(cls.applicant == applicant, cls.id != interview.id).display_details_of_interview(interview)
+            return cls.get(cls.applicant == applicant, cls.id != interview.id).display_details_of_interview(interview)
         except:
-            print("You have no scheduled interview yet.")
+            message = "You have no scheduled interview yet."
+            print(message)
+            return message
 
     @classmethod
     def filter_interview(cls, filter_by, value, value_2=None):
@@ -120,5 +122,7 @@ class InterviewSlot(BaseModel):
         return data
 
     def display_details_of_interview(self, interview):
-        data = (str(self.start)[:-3], str(self.end)[-8:-3], self.mentor.school.location, self.mentor.full_name)
+        data = [str(self.start)[:-3], str(self.end)[-8:-3], self.mentor.school.location, self.mentor.full_name]
         print("\nDate: {d[0]}-{d[1]}\nLocation: {d[2]}\nMentor: {d[3]}, {0}".format(interview.mentor.full_name, d=data))
+        data[3] = data[3] + ", " + interview.mentor.full_name
+        return data

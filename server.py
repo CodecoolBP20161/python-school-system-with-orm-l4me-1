@@ -5,6 +5,7 @@ from build import *
 from functools import wraps
 from school import *
 from mentor import *
+from menulink import *
 
 SECRET_KEY = 'l4me is cool'
 app = Flask('school_system-l4me')
@@ -22,9 +23,20 @@ def login_required(f):
     return wrap
 
 
+def applicant_login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'applicant_logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('You need to login first.')
+            return redirect(url_for('applicant_login'))
+    return wrap
+
+
 @app.route('/')
 def homepage():
-    return render_template('index.html')
+    return render_template('home.html', menu_list=Menulink.home())
 
 
 @app.route('/apply', methods=['POST'])
@@ -40,7 +52,26 @@ def applicant_apply():
 
 @app.route('/apply', methods=['GET'])
 def application_form(applicant=""):
-    return render_template('application_form.html', applicant=applicant)
+    return render_template('application_form.html', applicant=applicant, menu_list=Menulink.home())
+
+
+@app.route('/applicantlogin', methods=['POST', 'GET'])
+def applicant_login():
+    if request.method == 'POST':
+        query = Applicant.select().where(Applicant.application_code == request.form['app_code'],
+                                         Applicant.real_email == request.form['application_email'])
+        if not query:
+            flash('Invalid account. Try again')
+            return render_template('applicant_login_form.html')
+        else:
+            session['applicant_logged_in'] = query[0].application_code
+            flash('You were logged in.')
+            return redirect(url_for('applicant_profile'))
+    else:
+        if session.get('applicant_logged_in'):
+            return redirect(url_for('applicant_profile'))
+        else:
+            return render_template('applicant_login_form.html', menu_list=Menulink.home())
 
 
 @app.route('/adminlogin', methods=['POST', 'GET'])
@@ -55,13 +86,24 @@ def admin_login():
             flash('You were logged in.')
             return redirect(url_for('admin_page'))
     else:
-        return redirect(url_for('admin_page')) if session.get('logged_in') else render_template('login.html')
+        if session.get('logged_in'):
+            return redirect(url_for('admin_page'))
+        else:
+            return render_template('login.html', menu_list=Menulink.home())
 
 
 @app.route('/logout')
 @login_required
 def logout():
     session.pop('logged_in', None)
+    flash('You were logged out.')
+    return redirect(url_for('homepage'))
+
+
+@app.route('/applogout')
+@applicant_login_required
+def applicant_logout():
+    session.pop('applicant_logged_in', None)
     flash('You were logged out.')
     return redirect(url_for('homepage'))
 
@@ -94,14 +136,44 @@ def admin_filter():
         flash('Please fill the subfilter')
     return render_template('admin_filterapplicant.html', records=query,
                            schools=School.select(), mentors=Mentor.select(),
-                           last_search=applied_filter or 'ALL RECORDS')
+                           last_search=applied_filter or 'ALL RECORDS', menu_list=Menulink.admin())
 
 
 @app.route('/adminpage', methods=['GET'])
 @login_required
 def admin_page():
     return render_template('admin_filterapplicant.html', records=Applicant.select(), schools=School.select(),
-                           mentors=Mentor.select(), last_search='ALL RECORDS')
+                           mentors=Mentor.select(), last_search='ALL RECORDS', menu_list=Menulink.admin())
+
+
+@app.route('/applicantprofile')
+@applicant_login_required
+def applicant_profile():
+    applicant = Applicant.details_of_applicant(session['applicant_logged_in'])
+    data = [['Application code:', applicant.application_code],
+            ['Status:', applicant.get_status],
+            ['School:', applicant.get_school],
+            ['Application date:', applicant.time]]
+    detail_type = 'profile'
+    return render_template('applicant_profile.html', menu_list=Menulink.applicant(), detail_type=detail_type, data=data)
+
+
+@app.route('/applicantinterview')
+@applicant_login_required
+def applicant_interview():
+    details = InterviewSlot.details_of_interview(session['applicant_logged_in'])
+    data = ""
+    no_interview = ""
+    detail_type = "interview"
+    if not isinstance(details, str):
+        data = [['Date: ', details[0] + "-" + details[1]],
+                ['School: ', details[2]],
+                ['Mentor: ', details[3]]]
+        print("WTF")
+    else:
+        no_interview = details
+    return render_template('applicant_profile.html', menu_list=Menulink.applicant(),
+                           data=data, no_interview=no_interview, detail_type=detail_type)
 
 
 @app.teardown_appcontext

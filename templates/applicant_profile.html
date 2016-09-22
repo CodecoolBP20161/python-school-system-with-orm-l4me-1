@@ -1,0 +1,25 @@
+
+{% extends "index.html" %}
+{% block body %}
+
+<meta charset="utf-8">
+<title>l4me - Applicant view</title>
+
+{% include "menu.html" %}
+
+<div>
+ <h2>Your {{detail_type}} details</h2>
+
+{{no_interview}}
+
+ <table class="app_profile">
+{% for d in data %}
+  <tr class="app_profile">
+    <th>{{d[0]}}</th>
+    <td class="app_profile">{{d[1]}}</td>
+  </tr>
+{% endfor %}
+</table>
+</div>
+
+{% endblock %}

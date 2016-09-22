@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <title>l4me - ADMIN view</title>
 
+{% include "menu.html" %}
+
 <form action="" method="post">
-<a href="{{url_for('logout')}}" class="logout"><img style="vertical-align:middle; height: 20px; width: 20px;" src="{{url_for('static', filename='logout.png')}}">Logout</a>
     <p><fieldset class="mainfilter">
         <legend>Main filter</legend>
             <label for="status"><input onclick="filterHide();filterStatus();" type="radio" name="main_filter" value="status" required>Status

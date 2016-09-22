@@ -2,15 +2,17 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
         <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="shortcut icon" href="{{url_for('static', filename='codecool_icon.png')}}">
         <title>l4me</title>
+        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
     </head>
     <body>
         <h1><a href="{{ url_for('homepage') }}" class="home">
         <img style= "vertical-align:middle" src="{{url_for('static', filename='codecool_small_logo.png')}}" alt="logo">L4me School System</a></h1>
-        <p><a href="{{url_for('application_form')}}" class="apply">Apply to CODECOOL</a>
-        <a href="{{url_for('admin_login')}}" class="login">ADMIN Menu</a>
-        <a href="{{url_for('homepage')}}" class="login">MENTOR Menu</a></p>
         <p>{% for message in get_flashed_messages() %}
             {{ message }}
         {% endfor %}</p>
